@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <router-link to="/" class="nav-link active" aria-current="page">Accueil</router-link>
+              <router-link to="/home" class="nav-link active" aria-current="page">Accueil</router-link>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -35,10 +35,10 @@
               <router-link to="/ventes_de_vehicules" class="nav-link" style="font-weight: bold;">Nos véhicules en vente</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/a_propos" class="nav-link">À propos</router-link>
+              <router-link to="/home #a_propos" class="nav-link">À propos</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/avis_clients" class="nav-link">Réactions des clients</router-link>
+              <router-link to="/home#avis_clients" class="nav-link">Réactions des clients</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/contact" class="nav-link">Contact</router-link>
