@@ -47,5 +47,52 @@ export default {
 </script>
 
 <style scoped>
-  
+  footer {
+  margin-bottom: -30px;
+  background-color: black;
+  color: white;
+  width: 100%;
+  height: auto;
+  font-size: 12px;
+  font-weight: bolder;
+}
+
+.box-logos {
+  width: 70%;
+  margin-left: 130px;
+}
+.box-logos img {
+  margin: 15px;
+  width: 100px;
+}
+@media screen and (max-width: 820px) {
+  footer {
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .box-logos {
+    margin-top: 45px;
+    margin-left: 60px;
+  }
+  .box-logos img {
+    margin: 5px;
+    width: 75px;
+  }
+
+}
+@media screen and (max-width: 400px) {
+  footer {
+    font-size: 10px;
+    font-weight: 200;
+  }
+  .box-logos {
+    margin-top: 60px;
+    margin-left: 40px;
+  }
+  .box-logos img {
+    margin: 5px;
+    width: 50px;
+  }
+
+}
 </style>

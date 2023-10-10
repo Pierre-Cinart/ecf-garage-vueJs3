@@ -73,40 +73,41 @@ export default {
 <style scoped>
 header {
   font-size: 18px;
-  background-color: #333; /* Background color */
-  color: rgb(243, 237, 152);
 }
-
-.navbar-brand {
-  padding: 0; /* Remove padding to align the image */
-}
-
-.navbar-toggler-icon {
-  background-color: rgb(243, 237, 152);
-}
-
-.nav-link {
+header a {
   font-size: 18px !important;
   color: rgb(243, 237, 152) !important;
-  cursor: pointer;
 }
-
-.nav-link:hover {
+header a:hover {
   font-size: 19px !important;
-  font-weight: bold;
 }
-
-.dropdown-menu {
-  background-color: #333;
+header .nav-item {
+  margin: 10px;
+  border-radius: 25%;
 }
-
-.dropdown-item {
-  color: rgb(243, 237, 152) !important;
-  font-weight: normal;
-}
-
-.dropdown-item:hover {
+header .dropdown-item:hover, header .nav-item:hover {
   background-color: rgb(206, 48, 48) !important;
-  font-weight: bold;
+  font-weight: bolder;
+}
+header img {
+  width: 80px;
+}
+
+.header-nav {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: red;
+}
+
+.navBar-ConnectLink {
+  font-size: 12px;
+  color: darkblue !important;
+  text-decoration: none;
+}
+
+.navBar-ConnectLink:hover {
+  font: size 12px !important;
+  color: blue !important;
 }
 </style>
