@@ -16,11 +16,11 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
-import HorairesComponent from "./components/HorairesComponent.vue";
+import HorairesComponent from "@/components/HorairesComponent.vue";
 export default {
   name: "App",
   components: {
-    NavBar ,FooterBar, HorairesComponent,
+    NavBar, FooterBar, HorairesComponent,
   }
 }
 </script>

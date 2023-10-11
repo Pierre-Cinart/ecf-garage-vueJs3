@@ -27,13 +27,19 @@ const routes = [
     path: '/entretiens_vehicules',
     name: 'entretiens_vehicules',
    
-    component: () => import(/* webpackChunkName: "reparations_mecaniques" */ '../views/EntretiensView.vue')
+    component: () => import(/* webpackChunkName: "entretiens_véhicules" */ '../views/EntretiensView.vue')
   },
   {
     path: '/contact',
     name: 'contact',
    
-    component: () => import(/* webpackChunkName: "reparations_mecaniques" */ '../views/ContactView.vue')
+    component: () => import(/* webpackChunkName: "contact" */ '../views/ContactView.vue')
+  },
+  {
+    path: '/gallerie',
+    name: 'gallerie',
+   
+    component: () => import(/* webpackChunkName: "galleries-de-véhicules" */ '../views/VentesView.vue')
   }
  
 ]

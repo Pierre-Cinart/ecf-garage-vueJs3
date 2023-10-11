@@ -35,7 +35,7 @@
               <router-link to="/ventes_de_vehicules" class="nav-link" style="font-weight: bold;">Nos véhicules en vente</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/home #a_propos" class="nav-link">À propos</router-link>
+              <router-link to="/home#a_propos" class="nav-link">À propos</router-link>
             </li>
             <li class="nav-item">
               <router-link to="/home#avis_clients" class="nav-link">Réactions des clients</router-link>

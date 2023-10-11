@@ -1,13 +1,13 @@
 <template>
-
-    <NavBar/>
+  <div>
+  
     <div class="bg">
       <img src="@/assets/images/carrosserie/bg.jpg" alt="image de fond carrosserie">
     </div>
 
     <section class="main">
       <div class="sep"></div>
-      
+
       <!-- A propos -->
       <article id="a_propos" class="article-center txt-m">
         <h2>A propos</h2>
@@ -18,22 +18,24 @@
       </article>
 
       <div class="sep"></div>
-    <h2> place réservée aux commentaires ...</h2>
-      <div class="sep"></div>
 
-     
+      <!-- Div pour afficher les commentaires -->
+      <div id="commentaires">
+        <GetComments /> <!-- Utilisation du composant GetComments.vue -->
+      </div>
     </section>
- 
+  </div>
 </template>
 
 <script>
-// @ est un alias vers /src
 
+import GetComments from "@/components/GetComments.vue";
 
 export default {
   name: 'HomeView',
   components: {
    
+    GetComments, // Ajout du composant GetComments
   }
 }
 </script>
