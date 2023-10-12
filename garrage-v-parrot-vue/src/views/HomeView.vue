@@ -4,8 +4,10 @@
     <div class="bg">
       <img src="@/assets/images/carrosserie/bg.jpg" alt="image de fond carrosserie">
     </div>
-
+   
     <section class="main">
+      <div class="sep"></div>
+      <h1 id ="link-place">Bienvenue chez V-Parrot</h1>
       <div class="sep"></div>
 
       <!-- A propos -->
@@ -16,7 +18,7 @@
           <!-- (Le reste de votre contenu) -->
         </p>
       </article>
-
+      
       <div class="sep"></div>
 
       <!-- Div pour afficher les commentaires -->

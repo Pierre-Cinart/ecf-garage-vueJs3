@@ -32,13 +32,13 @@
               </ul>
             </li>
             <li class="nav-item">
-              <router-link to="/ventes_de_vehicules" class="nav-link" style="font-weight: bold;">Nos véhicules en vente</router-link>
+              <router-link to="/gallerie" class="nav-link" style="font-weight: bold;">Nos véhicules en vente</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/home#a_propos" class="nav-link">À propos</router-link>
+              <a href="/home#a_propos" class="nav-link" scroll-behavior="smooth">À propos</a>
             </li>
             <li class="nav-item">
-              <router-link to="/home#avis_clients" class="nav-link">Réactions des clients</router-link>
+              <a href="/home#avis_clients" class="nav-link" scroll-behavior="smooth">Réactions des clients</a>
             </li>
             <li class="nav-item">
               <router-link to="/contact" class="nav-link">Contact</router-link>
