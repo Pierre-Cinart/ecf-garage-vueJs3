@@ -48,5 +48,6 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+//creer les routes admins securisées
 
 export default router

@@ -1,0 +1,46 @@
+INSERT INTO staff (admin, admin_date, name, firstname, password_hash)
+VALUES
+('n', DATE_ADD('2023-11-12', INTERVAL FLOOR(RAND() * 31) DAY), 'Doe', 'John', '$2y$10$EXAMPLEHASHEDPASSWORD1'),
+('n', DATE_ADD('2023-11-12', INTERVAL FLOOR(RAND() * 31) DAY), 'Smith', 'Alice', '$2y$10$EXAMPLEHASHEDPASSWORD2'),
+('n', DATE_ADD('2023-11-12', INTERVAL FLOOR(RAND() * 31) DAY), 'Johnson', 'Bob', '$2y$10$EXAMPLEHASHEDPASSWORD3'),
+('n', DATE_ADD('2023-11-12', INTERVAL FLOOR(RAND() * 31) DAY), 'Wilson', 'Eva', '$2y$10$EXAMPLEHASHEDPASSWORD4'),
+('n', DATE_ADD('2023-11-12', INTERVAL FLOOR(RAND() * 31) DAY), 'Miller', 'Lisa', '$2y$10$EXAMPLEHASHEDPASSWORD5');
+
+
+code pour recup et hasher les mdp 
+<?php
+// Connexion à la base de données
+require_once('bdd.php');
+
+// Récupération des mots de passe et des hachages
+$query = "SELECT staff_id, password_hash FROM staff";
+$result = $bdd->query($query);
+$passwords = array();
+
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $passwords[$row['staff_id']] = $row['password_hash'];
+    }
+
+    // Génération de nouveaux hachages sécurisés pour les mots de passe
+    $newPasswords = array();
+    foreach ($passwords as $staff_id => $password_hash) {
+        $newPassword = "nouveaumotdepasse"; // Remplacez par le nouveau mot de passe souhaité
+        $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $newPasswords[$staff_id] = $newPasswordHash;
+    }
+
+    // Mise à jour des hachages dans la table `staff`
+    foreach ($newPasswords as $staff_id => $newPasswordHash) {
+        $updateQuery = "UPDATE staff SET password_hash = '$newPasswordHash' WHERE staff_id = $staff_id";
+        $bdd->query($updateQuery);
+    }
+
+    echo "Les mots de passe ont été mis à jour avec succès.";
+
+    // Fermeture de la connexion à la base de données
+    $bdd->close();
+} else {
+    echo "Une erreur s'est produite lors de la récupération des mots de passe.";
+}
+?>

@@ -20,10 +20,12 @@
       </article>
       
       <div class="sep"></div>
-
       <!-- Div pour afficher les commentaires -->
-      <div id="commentaires">
+      <div id="avis_clients">
         <GetComments /> <!-- Utilisation du composant GetComments.vue -->
+      </div>
+      <div>
+        <PostComments/>
       </div>
     </section>
   </div>
@@ -32,12 +34,12 @@
 <script>
 
 import GetComments from "@/components/GetComments.vue";
-
+import PostComments from "@/components/PostComments.vue";
 export default {
   name: 'HomeView',
   components: {
    
-    GetComments, // Ajout du composant GetComments
+    GetComments,PostComments // Ajout du composant GetComments
   }
 }
 </script>
