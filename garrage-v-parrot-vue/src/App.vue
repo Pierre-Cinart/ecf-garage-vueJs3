@@ -9,6 +9,8 @@
     <!-- horaires -->
     <div class="sep"></div>
     <HorairesComponent/>
+    <br>
+    <BtnContact/>
     <FooterBar/>
   </div>
 </template>
@@ -17,10 +19,11 @@
 import NavBar from "@/components/NavBar.vue";
 import FooterBar from "@/components/FooterBar.vue";
 import HorairesComponent from "@/components/HorairesComponent.vue";
+import BtnContact from "@/components/BtnContact.vue";
 export default {
   name: "App",
   components: {
-    NavBar, FooterBar, HorairesComponent,
+    NavBar, FooterBar, HorairesComponent,BtnContact,
   }
 }
 </script>

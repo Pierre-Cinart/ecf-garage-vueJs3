@@ -4,7 +4,7 @@
         <article class="article-center">
             <div>
                 <div class="sep"></div>
-                <h2 style="margin:auto;text-align:center;">Besoin de plus d'informations ?<br>Contactez-nous :</h2>
+                <h2 id="topPage" style="margin:auto;text-align:center;">Besoin de plus d'informations ?<br>Contactez-nous :</h2>
                 <br>
                
                 <!-- Formulaire de contact -->
