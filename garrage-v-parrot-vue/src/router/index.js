@@ -1,5 +1,5 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
 
 const routes = [
   {
@@ -40,7 +40,18 @@ const routes = [
     name: 'gallerie',
    
     component: () => import(/* webpackChunkName: "galleries-de-véhicules" */ '../views/VentesView.vue')
-  }
+  },
+  {
+    path: '/connexion',
+    name: 'connexion',
+   
+    component: () => import(/* webpackChunkName: "galleries-de-véhicules" */ '../views/AdminView.vue')
+  },
+  {
+    path: '/:catchAll(.*)',
+    name: '404',
+    component: () => import(/* webpackChunkName: "erreur404" */ '@/views/NotFoundView.vue')
+  },
  
 ]
 

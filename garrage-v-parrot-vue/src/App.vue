@@ -8,9 +8,11 @@
 
     <!-- horaires -->
     <div class="sep"></div>
+   <div class ="h-c">
     <HorairesComponent/>
     <br>
     <BtnContact/>
+   </div>
     <FooterBar/>
   </div>
 </template>
@@ -28,6 +30,5 @@ export default {
 }
 </script>
 
-<style>
-/* Styles pour l'application principale */
+<style scoped>
 </style>

@@ -7,6 +7,5 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // Configuration de la base de données et connexion à la bdd
 require_once('bdd.php');
 
-//verifier les droits administrateur et afficher les employés 
-//et permettre la gestion et la creation de nouvel employé
+//verifier les droits administrateur et afficher les messageset permettre la gestion
 ?>
