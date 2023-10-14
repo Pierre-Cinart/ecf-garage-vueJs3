@@ -10,6 +10,7 @@ html, body {
 }
 
 body {
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,64 +33,9 @@ body {
   text-decoration: underline;
 }
 
-header {
-  font-size: 18px;
-}
-header a {
-  font-size: 18px !important;
-  color: rgb(243, 237, 152) !important;
-}
-header a:hover {
-  font-size: 19px !important;
-}
-header .nav-item {
-  margin: 10px;
-  border-radius: 25%;
-}
-header .dropdown-item:hover, header .nav-item:hover {
-  background-color: rgb(206, 48, 48) !important;
-  font-weight: bolder;
-}
-header img {
-  width: 80px;
-}
 
-.header-nav {
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  background-color: red;
-}
 
-.navBar-ConnectLink {
-  font-size: 12px;
-  color: darkblue !important;
-  text-decoration: none;
-}
 
-.navBar-ConnectLink:hover {
-  font: size 12px !important;
-  color: blue !important;
-}
-
-footer {
-  margin-top: 30px;
-  background-color: black;
-  color: white;
-  width: 100%;
-  height: auto;
-  font-size: 12px;
-  font-weight: bolder;
-}
-
-.box-logos {
-  width: 70%;
-  margin-left: 130px;
-}
-.box-logos img {
-  margin: 15px;
-  width: 100px;
-}
 
 .bg img {
   width: 100%;
@@ -153,20 +99,7 @@ footer {
   box-shadow: 0px 0px 15px 5px rgba(241, 229, 124, 0.349);
 }
 
-.horaire {
-  width: 25%;
-  min-width: 210px;
-  margin: auto;
-}
-.horaire h2 {
-  text-align: center;
-}
-.horaire p {
-  padding-left: 20%;
-}
-.horaire span {
-  font-weight: 700;
-}
+
 
 .sep {
   margin-top: 20px;
@@ -388,18 +321,7 @@ footer {
 }
 
 @media screen and (max-width: 820px) {
-  footer {
-    font-size: 12px;
-    font-weight: 400;
-  }
-  .box-logos {
-    margin-top: 45px;
-    margin-left: 60px;
-  }
-  .box-logos img {
-    margin: 5px;
-    width: 75px;
-  }
+
   .card-txt h3 {
     font-size: 20px;
   }
@@ -408,18 +330,7 @@ footer {
   }
 }
 @media screen and (max-width: 400px) {
-  footer {
-    font-size: 10px;
-    font-weight: 200;
-  }
-  .box-logos {
-    margin-top: 60px;
-    margin-left: 40px;
-  }
-  .box-logos img {
-    margin: 5px;
-    width: 50px;
-  }
+
   .card-txt h3 {
     font-size: 24px;
   }

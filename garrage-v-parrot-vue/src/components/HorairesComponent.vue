@@ -29,5 +29,18 @@ export default {
 </script>
 
 <style scoped>
-/* Ajoutez vos styles CSS ici, s'ils sont spécifiques à cette vue */
-</style>
+.horaire {
+  width: 25%;
+  min-width: 210px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.horaire h2 {
+  text-align: center;
+}
+.horaire p {
+  padding-left: 20%;
+}
+.horaire span {
+  font-weight: 700;
+}</style>
