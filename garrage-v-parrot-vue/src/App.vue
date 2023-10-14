@@ -1,34 +1,53 @@
 <template>
-  <div id="app">
-    <!-- Intégrer le composant NavBar -->
-    <NavBar/>
-
-    <!-- Le contenu de votre application -->
-    <router-view/>
-
-    <!-- horaires -->
-    <div class="sep"></div>
-   <div class ="h-c">
-    <HorairesComponent/>
-    <br>
-    <BtnContact/>
-   </div>
-    <FooterBar/>
-  </div>
-</template>
-
-<script>
-import NavBar from "@/components/NavBar.vue";
-import FooterBar from "@/components/FooterBar.vue";
-import HorairesComponent from "@/components/HorairesComponent.vue";
-import BtnContact from "@/components/BtnContact.vue";
-export default {
-  name: "App",
-  components: {
-    NavBar, FooterBar, HorairesComponent,BtnContact,
+    <div id="app" class="app-container">
+      <!-- Masquer la NavBar pour les routes admin -->
+      <NavBar v-if="!isAdminRoute" />
+      
+      <!-- Le contenu de votre application -->
+      <router-view />
+  
+      <!-- Horaires et Bouton de contact -->
+      <div class="sep" v-if="!isAdminRoute"></div>
+      <div class="h-c" v-if="!isAdminRoute">
+        <HorairesComponent />
+        <br />
+        <BtnContact />
+      </div>
+    </div>
+    <FooterBar class="footer" v-if="!isAdminRoute" />
+  </template>
+  
+  <script>
+  import NavBar from "@/components/NavBar.vue";
+  import FooterBar from "@/components/FooterBar.vue";
+  import HorairesComponent from "@/components/HorairesComponent.vue";
+  import BtnContact from "@/components/BtnContact.vue";
+  
+  export default {
+    name: "PublicViews",
+    components: {
+      NavBar,
+      FooterBar,
+      HorairesComponent,
+      BtnContact,
+    },
+    computed: {
+      isAdminRoute() {
+        return this.$route.path.startsWith('/admin');
+      },
+    },
+  };
+  </script>
+  
+  <style scoped>
+  .app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
-}
-</script>
-
-<style scoped>
-</style>
+  
+  .footer {
+    margin-top: auto;
+  }
+  </style>
+  
