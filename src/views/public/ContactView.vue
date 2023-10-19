@@ -44,7 +44,7 @@
                 <!-- Informations de contact -->
                 <p>
                     Garage V-Parrot, Entretiens, réparations et ventes automobiles <br>
-                    Adresse : 123 rue des Jardins, 75000 Paris, France <br>
+                    Adresse : 123 rue des belles voitures, 75000 Paris, France <br>
                     Téléphone : +33 1 23 45 67 89 <br>
                     Email : contact@V-Parrot.com <br>
                 </p>
