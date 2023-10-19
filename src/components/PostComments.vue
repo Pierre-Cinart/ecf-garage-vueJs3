@@ -1,7 +1,7 @@
 <template>
   <div class="post_comment">
     <h2>Votre avis nous intéresse<br>Laissez-nous un commentaire :</h2>
-    <form @submit="postComment" method="post">
+    <form @submit.prevent="postComment">
       <div class="l">
         <input type="text" v-model="newComment.firstname" placeholder="Prénom" required>
         <br><br>
@@ -15,7 +15,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -27,44 +28,39 @@ export default {
     };
   },
   methods: {
-    async postComment(event) {
-      event.preventDefault();
-
-      // Valider les noms et prénoms
-      if (!this.validateName(this.newComment.firstname) || !this.validateName(this.newComment.lastname)) {
-        console.error('Le prénom et le nom doivent contenir entre 2 et 25 lettres.');
-        return;
-      }
-
-      // Valider la longueur du commentaire
-      if (!this.validateCommentLength(this.newComment.content)) {
-        console.error('Le commentaire doit contenir au moins 16 caractères.');
-        return;
-      }
-
+    async postComment() {
       try {
+        // Envoi de la requête POST au serveur
         const response = await axios.post('PostComments.php', this.newComment);
+        
+        // Si la réponse est un succès (code 201), afficher un message de succès
         if (response.status === 201) {
+          this.$toasted.success('Votre commentaire a bien été envoyé.', {
+            theme: 'toasted-primary',
+            position: 'top-center',
+          });
+
+          // Réinitialisation du formulaire
           this.newComment = {
             firstname: '',
             lastname: '',
             content: '',
           };
         } else {
-          console.error('Erreur lors de la création du commentaire.');
+          // Sinon, afficher un message d'erreur
+          this.$toasted.error('Erreur lors de la création du commentaire.', {
+            theme: 'toasted-primary',
+            position: 'top-center',
+          });
         }
       } catch (error) {
-        console.error('Une erreur s\'est produite lors de la création du commentaire.', error);
+        // En cas d'erreur, afficher un message d'erreur et afficher l'erreur dans la console
+        this.$toasted.error('Une erreur s\'est produite lors de la création du commentaire.', {
+          theme: 'toasted-primary',
+          position: 'top-center',
+        });
+        console.error(error);
       }
-    },
-    validateName(name) {
-      // Valider le prénom ou le nom (entre 2 et 25 lettres)
-      const regex = /^[\p{L}\s]{2,25}$/u;
-      return regex.test(name);
-    },
-    validateCommentLength(comment) {
-      // Valider la longueur du commentaire (au moins 16 caractères)
-      return comment.length >= 16;
     },
   },
 };
