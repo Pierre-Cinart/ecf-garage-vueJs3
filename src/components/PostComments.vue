@@ -9,6 +9,8 @@
         <br><br>
       </div>
       <textarea v-model="newComment.content" rows="5" placeholder="Votre commentaire" required></textarea>
+      <!-- Ajoutez une div pour le widget reCAPTCHA -->
+      <div id="recaptchaComment"></div> <!-- Utilisez un identifiant unique, par exemple, "recaptchaComment" -->
       <button type="submit">Poster le commentaire</button>
     </form>
   </div>
@@ -28,27 +30,57 @@ export default {
     };
   },
   methods: {
-    async postComment() {
+    async postComment(event) {
+      event.preventDefault();
+      // Valider les noms et prénoms
+      if (!this.validateName(this.newComment.firstname) || !this.validateName(this.newComment.lastname)) {
+        console.error('Le prénom et le nom doivent contenir entre 2 et 25 lettres.');
+        return;
+      }
+      // Valider la longueur du message
+      if (!this.validateMessageLength(this.newComment.content)) {
+        console.error('Le commentaire doit contenir au moins 16 caractères.');
+        return;
+      }
       try {
-        // Envoi de la requête POST au serveur
-        const response = await axios.post('PostComments.php', this.newComment);
-        
-        // Si la réponse est un succès (code 201), effectuez une action ici
-        if (response.status === 201) {
-          // Réinitialisation du formulaire
-          this.newComment = {
-            firstname: '',
-            lastname: '',
-            content: '',
-          };
+        // Exécutez reCAPTCHA avant d'envoyer le commentaire
+        const recaptchaToken = await this.$recaptcha('comment'); // Utilisez le bon nom de l'action, par exemple, 'comment'
+
+        if (recaptchaToken) {
+          // Le reCAPTCHA a réussi, envoyez le commentaire à l'API
+          const response = await axios.post('PostComments.php', {
+            ...this.newComment,
+            recaptchaToken: recaptchaToken,
+          });
+
+          // Si la réponse est un succès (code 201), effectuez une action ici
+          if (response.status === 201) {
+            // Réinitialisation du formulaire
+            this.newComment = {
+              firstname: '',
+              lastname: '',
+              content: '',
+            };
+          } else {
+            // Sinon, affichez un message d'erreur ici
+            console.error('Erreur lors de la création du commentaire.');
+          }
         } else {
-          // Sinon, affichez un message d'erreur ici
+          console.error('Veuillez cocher la case "Je ne suis pas un robot".');
         }
       } catch (error) {
         // En cas d'erreur, affichez un message d'erreur ici et affichez l'erreur dans la console
-        console.error(error);
+        console.error("Une erreur s'est produite lors de la création du commentaire.", error);
       }
     },
+    validateName(name) {
+      // Valider le prénom ou le nom (entre 2 et 25 lettres)
+      const regex = /^[\p{L}\s]{2,25}$/u;
+      return regex.test(name);
+    },
+    validateMessageLength(content) {
+      return content.length >= 16;
+    }
   },
 };
 </script>

@@ -3,41 +3,58 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
-// Configuration de la base de données et connexion à la BDD
+// Inclusion du fichier de configuration de la base de données
 require_once('bdd.php');
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Si la méthode HTTP est OPTIONS, c'est une pré-vérification CORS, donc retournez les en-têtes CORS appropriés.
-    header("HTTP/1.1 200 OK");
-    exit;
-}
+
+// Clé secrète reCAPTCHA (remplacez par votre propre clé secrète)
+$recaptchaSecretKey = '6LfHo7QoAAAAAM3rLyJkfOhG_U6EfCT8khqD2Oa6';
+
+// Vérification de la méthode HTTP (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Récupération des données JSON envoyées depuis le front-end
     $data = json_decode(file_get_contents("php://input"), true);
 
-    $firstname = $data['firstname'];
-    $lastname = $data['lastname'];
-    $content = $data['content'];
+    // Vérification reCAPTCHA
+    $recaptchaResponse = $data['recaptchaToken'];
+    $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptchaData = [
+        'secret' => $recaptchaSecretKey,
+        'response' => $recaptchaResponse,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    ];
+
+    $recaptchaOptions = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query($recaptchaData)
+        ]
+    ];
+
+    $recaptchaContext = stream_context_create($recaptchaOptions);
+    $recaptchaResult = file_get_contents($recaptchaUrl, false, $recaptchaContext);
+    $recaptchaResult = json_decode($recaptchaResult, true);
+
+    if (!$recaptchaResult['success']) {
+        http_response_code(400); // Code de réponse HTTP "Bad Request"
+        echo json_encode(['error' => 'Veuillez valider le reCAPTCHA.']);
+        exit;
+    }
+
+    // Extraction des données du commentaire
+    $firstname = htmlspecialchars($data['firstname']);
+    $lastname = htmlspecialchars($data['lastname']);
+    $content = htmlspecialchars($data['content']);
     $comment_status = 'wait';  // Par défaut, le commentaire est en attente de modération
+    $comment_date = date('Y-m-d H:i:s'); // Date actuelle
 
-    // Valider les noms et prénoms
-    if (!validateName($firstname) || !validateName($lastname)) {
-        http_response_code(400); // Code de réponse HTTP "Bad Request"
-        echo json_encode(['error' => 'Le prénom et le nom doivent contenir entre 2 et 25 lettres.']);
-        exit;
-    }
+   
 
-    // Valider la longueur du commentaire
-    if (!validateCommentLength($content)) {
-        http_response_code(400); // Code de réponse HTTP "Bad Request"
-        echo json_encode(['error' => 'Le commentaire doit contenir au moins 16 caractères.']);
-        exit;
-    }
-
-    // Insertion du commentaire dans la base de données
-    $query = "INSERT INTO comments (firstname, lastname, comment_text, comment_status) VALUES (?, ?, ?, ?)";
+    // Insertion du commentaire dans la base de données en utilisant des requêtes préparées
+    $query = "INSERT INTO comments (firstname, lastname, comment_text, comment_status, comment_date) VALUES (?, ?, ?, ?, ?)";
     $stmt = $bdd->prepare($query);
-    $stmt->bind_param('ssss', $firstname, $lastname, $content, $comment_status);
+    $stmt->bind_param('sssss', $firstname, $lastname, $content, $comment_status, $comment_date);
 
     if ($stmt->execute()) {
         http_response_code(201); // Code 201 pour une création réussie
@@ -48,14 +65,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-function validateName($name) {
-    // Valider le prénom ou le nom (entre 2 et 25 lettres)
-    $regex = '/^[\p{L}\s]{2,25}$/u';
-    return preg_match($regex, $name);
-}
 
-function validateCommentLength($comment) {
-    // Valider la longueur du commentaire (au moins 16 caractères)
-    return mb_strlen($comment) >= 16;
-}
 ?>
