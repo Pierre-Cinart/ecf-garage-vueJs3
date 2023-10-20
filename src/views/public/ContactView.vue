@@ -10,24 +10,38 @@
         <div class="contact-form">
           <h2>Votre avis nous intéresse<br>Laissez-nous un message :</h2>
           <form @submit.prevent="postMessage" method="post">
+            <!-- Champ pour le prénom -->
             <div class="form-box">
               <label>Prénom :</label>
               <input type="text" v-model="newMessage.firstname" placeholder="Prénom" required>
             </div>
-            <div class ="form-box">
+            <!-- Champ pour le nom -->
+            <div class="form-box">
               <label>Nom :</label>
               <input type="text" v-model="newMessage.lastname" placeholder="Nom" required>
             </div>
+            <!-- Champ pour l'e-mail -->
+            <div class="form-box">
+              <label>Email :</label>
+              <input type="email" v-model="newMessage.email" placeholder="E-mail" required>
+            </div>
+            <div class="form-box">
+              <label>Téléphone :</label>
+              <input type="txt" v-model="newMessage.telephone" placeholder="Téléphone" >
+            </div>
+            <!-- Champ pour le sujet -->
             <div class="form-box">
               <label>Sujet :</label>
               <input type="text" v-model="newMessage.subject" placeholder="Sujet du message" required>
             </div>
+            <!-- Champ pour le message -->
             <div class="form-box">
               <label>Message :</label>
               <textarea v-model="newMessage.content" rows="8" placeholder="Votre message" required></textarea>
             </div>
             <!-- Ajoutez une div pour le widget reCAPTCHA -->
             <div id="recaptcha"></div>
+            <!-- Bouton pour envoyer le message -->
             <button class="btn-sub" type="submit">Envoyer</button>
           </form>
         </div>
@@ -45,6 +59,8 @@ export default {
       newMessage: {
         firstname: '',
         lastname: '',
+        email: '', 
+        telephone: '', 
         subject: '',
         content: '',
       },
@@ -57,6 +73,12 @@ export default {
       // Valider les noms et prénoms
       if (!this.validateName(this.newMessage.firstname) || !this.validateName(this.newMessage.lastname)) {
         console.error('Le prénom et le nom doivent contenir entre 2 et 25 lettres.');
+        return;
+      }
+
+      // Valider l'e-mail
+      if (!this.validateEmail(this.newMessage.email)) {
+        console.error('L\'adresse e-mail n\'est pas valide.');
         return;
       }
 
@@ -75,21 +97,20 @@ export default {
       try {
         // Exécutez reCAPTCHA avant d'envoyer le message
         const recaptchaToken = await this.$recaptcha('contact');
-
-// Ajoutez cette ligne pour afficher le jeton reCAPTCHA dans la console
-console.log('reCAPTCHA Token:', recaptchaToken);
+        
 
         if (recaptchaToken) {
           // Le reCAPTCHA a réussi, envoyez le message à l'API
           const response = await axios.post('PostMessages.php', {
             ...this.newMessage,
-            recaptchaToken: recaptchaToken, // Ajoutez le jeton reCAPTCHA à la demande
+            recaptchaToken: recaptchaToken,
           });
 
           if (response.status === 201) {
             this.newMessage = {
               firstname: '',
               lastname: '',
+              email: '',
               subject: '',
               content: '',
             };
@@ -97,7 +118,6 @@ console.log('reCAPTCHA Token:', recaptchaToken);
             console.error('Erreur lors de la création du message.');
           }
         } else {
-          // En cas d'échec du reCAPTCHA, affichez un message d'erreur
           console.error('Veuillez cocher la case "Je ne suis pas un robot".');
         }
       } catch (error) {
@@ -109,12 +129,20 @@ console.log('reCAPTCHA Token:', recaptchaToken);
       const regex = /^[\p{L}\s]{2,25}$/u;
       return regex.test(name);
     },
+    validateEmail(email) {
+      // Valider l'adresse e-mail avec une expression régulière
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailRegex.test(email);
+    },
+    validateTelephone(telephone) {
+      // Valider le numéro de téléphone avec une expression régulière
+      const telRegex = /^[0-9]+$/; // Autorise un ou plusieurs chiffres
+      return telRegex.test(telephone);
+    },
     validateMessageLength(message) {
-      // Valider la longueur du message (au moins 16 caractères)
       return message.length >= 16;
     },
     validateSubjectLength(subject) {
-      // Valider la longueur du sujet (entre 5 et 100 caractères)
       return subject.length >= 5 && subject.length <= 100;
     },
   },
