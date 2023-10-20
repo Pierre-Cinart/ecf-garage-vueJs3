@@ -9,16 +9,40 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // Inclusion du fichier de configuration de la base de données
 require_once('bdd.php'); // Assurez-vous que 'bdd.php' est correctement configuré.
 
-// Vérification de la méthode HTTP (OPTIONS est utilisé pour la gestion des requêtes CORS)
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    header("HTTP/1.1 200 OK");
-    exit;
-}
+// Clé secrète reCAPTCHA (remplacez par votre propre clé secrète)
+$recaptchaSecretKey = '6LfHo7QoAAAAAM3rLyJkfOhG_U6EfCT8khqD2Oa6';
 
 // Vérification de la méthode HTTP (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupération des données JSON envoyées depuis le front-end
     $data = json_decode(file_get_contents("php://input"), true);
+
+    // Vérification reCAPTCHA
+    $recaptchaResponse = $data['recaptchaToken']; // Assurez-vous que le nom du champ correspond à votre front-end
+    $recaptchaUrl = 'https://www.google.com/recaptcha/api/siteverify';
+    $recaptchaData = [
+        'secret' => $recaptchaSecretKey,
+        'response' => $recaptchaResponse,
+        'remoteip' => $_SERVER['REMOTE_ADDR']
+    ];
+
+    $recaptchaOptions = [
+        'http' => [
+            'method' => 'POST',
+            'header' => 'Content-Type: application/x-www-form-urlencoded',
+            'content' => http_build_query($recaptchaData)
+        ]
+    ];
+
+    $recaptchaContext = stream_context_create($recaptchaOptions);
+    $recaptchaResult = file_get_contents($recaptchaUrl, false, $recaptchaContext);
+    $recaptchaResult = json_decode($recaptchaResult, true);
+
+    if (!$recaptchaResult['success']) {
+        http_response_code(400); // Code de réponse HTTP "Bad Request"
+        echo json_encode(['error' => 'Veuillez valider le reCAPTCHA.']);
+        exit;
+    }
 
     // Extraction des données du message
     $firstname = $data['firstname'];

@@ -14,7 +14,11 @@
     "date-fns": "^2.30.0",
     "express": "^4.18.2",
     "firebase": "^10.5.0",
-    "vue": "^3.2.13",
+    "vue": "^3.3.4",
+    "vue-hcaptcha": "^0.1.1",
+    "vue-loader": "^17.3.0",
+    "vue-recaptcha": "^3.0.0-alpha.6",
+    "vue-recaptcha-v3": "^2.0.1",
     "vue-router": "^4.0.3",
     "vuex": "^4.0.0"
   },
@@ -27,7 +31,9 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2"
   },
   "description": "```\r yarn install\r ```",
   "main": ".eslintrc.js",

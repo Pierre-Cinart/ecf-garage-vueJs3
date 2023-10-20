@@ -33,13 +33,8 @@ export default {
         // Envoi de la requête POST au serveur
         const response = await axios.post('PostComments.php', this.newComment);
         
-        // Si la réponse est un succès (code 201), afficher un message de succès
+        // Si la réponse est un succès (code 201), effectuez une action ici
         if (response.status === 201) {
-          this.$toasted.success('Votre commentaire a bien été envoyé.', {
-            theme: 'toasted-primary',
-            position: 'top-center',
-          });
-
           // Réinitialisation du formulaire
           this.newComment = {
             firstname: '',
@@ -47,18 +42,10 @@ export default {
             content: '',
           };
         } else {
-          // Sinon, afficher un message d'erreur
-          this.$toasted.error('Erreur lors de la création du commentaire.', {
-            theme: 'toasted-primary',
-            position: 'top-center',
-          });
+          // Sinon, affichez un message d'erreur ici
         }
       } catch (error) {
-        // En cas d'erreur, afficher un message d'erreur et afficher l'erreur dans la console
-        this.$toasted.error('Une erreur s\'est produite lors de la création du commentaire.', {
-          theme: 'toasted-primary',
-          position: 'top-center',
-        });
+        // En cas d'erreur, affichez un message d'erreur ici et affichez l'erreur dans la console
         console.error(error);
       }
     },
