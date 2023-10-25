@@ -48,43 +48,7 @@ const routes = [
 
   ///////////////////////         partie administration         ///////////////////////
 
-  {
-    path: '/admin-connexion',
-    name: '/admin-connexion',
-   
-    component: () => import(/* webpackChunkName: "admin-connexion" */ '@/views/admin/ConnectView.vue')
-  },
-  {
-    path: '/admin/dashboard',
-    name: 'dashboard',
-   
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/admin/DashboardView.vue')
-  },
-  {
-    path: '/admin/gestion-vehicules',
-    name: 'gestion-vehicules',
-   
-    component: () => import(/* webpackChunkName: "gestion-vehicules" */ '@/views/admin/AdminCars.vue')
-  },
-  {
-    path: '/admin/gestion-commentaires',
-    name: 'gestion-commentaires',
-   
-    component: () => import(/* webpackChunkName: "gestion-commentaires" */ '@/views/admin/AdminComments.vue')
-  },
-  {
-    path: '/admin/gestion-messages',
-    name: 'gestion-messages',
-   
-    component: () => import(/* webpackChunkName: "gestion-messages" */ '@/views/admin/AdminMessages.vue')
-  },
-  {
-    path: '/admin/gestion-staff',
-    name: 'gestion-staff',
-   
-    component: () => import(/* webpackChunkName: "gestion-staff" */ '@/views/admin/AdminStaff.vue')
-  },
-
+  
   ////////////////////// error 404 ////////////////////////
   {
     path: '/:catchAll(.*)',

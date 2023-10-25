@@ -8,6 +8,7 @@ exemplecompletionTables.txt
 .env.local
 .env.*.local
 /backend/.env
+.env
 # Log files
 npm-debug.log*
 yarn-debug.log*

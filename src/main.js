@@ -5,6 +5,7 @@ import store from './store';
 import './axios';
 import { VueReCaptcha } from 'vue-recaptcha-v3'; // Importez le package VueReCaptcha
 
+
 const app = createApp(App);
 
 app
@@ -13,7 +14,7 @@ app
 
 // Initialisez reCAPTCHA ici avec votre clé de site
 app.use(VueReCaptcha, {
-  siteKey: '6LfHo7QoAAAAAEC54uF5IlK9iGscA1meFRFsThl2', // Remplacez par votre propre clé
+  siteKey: process.env.VUE_APP_RECAPTCHA_SITE_KEY, // Remplacez par votre propre clé
 });
 
 app.mount('#app');

@@ -7,11 +7,7 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 // Inclure le fichier de configuration de la base de données
 require_once('bdd.php');
 
-if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
-    // Si la méthode HTTP est OPTIONS, c'est une pré-vérification CORS, donc retournez les en-têtes CORS appropriés.
-    header("HTTP/1.1 200 OK");
-    exit;
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -24,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $query = "SELECT c.*, m.nom_marque AS car_mark, cl.nom_couleur AS car_color FROM cars c
               LEFT JOIN marques m ON c.car_mark_id = m.marque_id
               LEFT JOIN couleurs cl ON c.car_color_id = cl.couleur_id
-              WHERE c.car_model LIKE '%$searchTerm' OR m.nom_marque LIKE '%$searchTerm'";
+              WHERE c.car_model LIKE '%$searchTerm%' OR m.nom_marque LIKE '%$searchTerm%'";
 
     // Modifier la requête en fonction de l'option de tri
     switch ($sortOption) {

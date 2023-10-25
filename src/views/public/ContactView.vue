@@ -4,11 +4,11 @@
       <div>
         <div class="sep"></div>
         <div id="topPage">
-          <h2 style="margin:auto;text-align:center;">Besoin de plus d'informations ?<br>Contactez-nous :</h2>
+          <h1 id ="link-place"> Le garage v-parrot est à votre écoute :</h1>
         </div>
         <br>
         <div class="contact-form">
-          <h2>Votre avis nous intéresse<br>Laissez-nous un message :</h2>
+          <h2 style="margin:auto;text-align:center;">Besoin de plus d'informations ?<br>Contactez-nous :</h2>
           <form @submit.prevent="postMessage" method="post">
             <!-- Champ pour le prénom -->
             <div class="form-box">
