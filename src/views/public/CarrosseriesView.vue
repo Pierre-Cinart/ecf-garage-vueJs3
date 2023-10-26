@@ -27,19 +27,8 @@
         <!-- text informations -->
         <article class="txt-box">
             
-            <p class="txt-s">Au <strong>Garage V-Parrot</strong>, nous sommes spécialisés dans la réparation de carrosserie, offrant des services de qualité pour redonner vie à votre véhicule. Notre équipe expérimentée, forte de <strong>15 ans d'expertise</strong> dans le domaine, utilise les meilleures techniques et équipements pour restaurer l'aspect d'origine de votre voiture. Que ce soit pour des bosses, des rayures ou d'autres dommages, 
-                faites confiance à nos experts pour des résultats exceptionnels.</p>
-            <p class="txt-s">Nous comprenons à quel point votre voiture est importante pour vous.
-                 C'est pourquoi nous mettons un point d'honneur à traiter chaque projet avec le plus grand soin et à veiller
-                  à ce que votre véhicule retrouve son état d'origine. Notre équipe qualifiée est équipée des dernières 
-                  technologies et est prête à relever tous les défis de réparation de carrosserie, grands ou petits.</p>
-
-            <p class="txt-s">Que vous ayez besoin d'une retouche de peinture, de la réparation de bosses ou de la 
-                restauration complète de votre carrosserie, nous sommes là pour vous. Prenez rendez-vous dès 
-                aujourd'hui et confiez votre voiture entre nos mains expertes. Votre satisfaction est notre priorité,
-                 et nous sommes déterminés à vous offrir des résultats exceptionnels à chaque étape du processus de 
-                 réparation de carrosserie.</p>
-
+             <!-- injection de larticle concerné  -->
+        <get-article :title="'carrosserie'"></get-article>
         </article>
       
        
@@ -47,13 +36,15 @@
 </template>
 
 <script>
-export default {
+    import GetArticle from "@/components/GetArticle.vue"; 
 
- name: 'CarroseriesView',
-  components: {
+    export default {
    
-  }
-}
+        name: 'CarroseriesView',
+        components: {
+            GetArticle
+        }
+    }
 </script>
 
 <style>
