@@ -18,6 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["log_in"]=true;
         $_SESSION["user_id"] = $user["staff_id"];
         $_SESSION["Token"] = createToken();
+        $_SESSION["user"] = $user["firstname"] . " " . $user["name"];
+        $_SESSION["admin"] = $user["admin"];
         $sql = $bdd->prepare('UPDATE staff SET token= ? WHERE staff_id = ?');
         $sql->bind_param("si", $_SESSION["Token"], $_SESSION['user_id']);
         $sql->execute();
@@ -34,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="fr">
 <head>
     <?php include_once './phpComponents/head.php'; ?>
-    <title>Garage V-Parrot</title>
+    <title>Connexion</title>
 </head>
 
 <body>
@@ -68,7 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($erreurConnexion)) {
             echo '<p class="error-mess">' . $erreurConnexion . '</p>';
         }
-        ?>
-
+        
+    //        scripts
+    include_once("./phpComponents/script.php")
+    ?>
 </body>
 </html>

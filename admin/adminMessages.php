@@ -1,6 +1,6 @@
 <?php
 session_start();
-$currentPage = 'dashboard';
+$currentPage = 'adminMessages';
 if (!$_SESSION["log_in"]){
     header('Location:index.php');
     exit();
@@ -10,7 +10,7 @@ if (!$_SESSION["log_in"]){
 <html lang="fr">
 <head>
 <?php include_once ("./phpComponents/head.php");?>
-    <title>Dashboard</title>
+    <title>Gestion des messages</title>
 </head>
 <body>
 <?php include_once ("./phpComponents/header.php");?>
