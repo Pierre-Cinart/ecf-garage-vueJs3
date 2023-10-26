@@ -1,6 +1,6 @@
 <?php
     function createToken() {
-        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-!$%ùò/à*';
+        $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+-!';
         $code = '';
         $length = strlen($characters);
     

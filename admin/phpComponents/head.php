@@ -1,4 +1,6 @@
-
+<?php
+$recaptchaKey ='6LfHo7QoAAAAAEC54uF5IlK9iGscA1meFRFsThl2';
+?>
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
