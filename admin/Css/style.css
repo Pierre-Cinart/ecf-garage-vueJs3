@@ -6,6 +6,11 @@ header {
 .nav-link{
   color:white;
 }
+.nav-link:hover{
+  color:rgb(162, 161, 228)!important;
+  text-decoration: underline;
+}
+
 .nav-link.active{
   color:rgb(2, 252, 23) !important;
 }
@@ -68,3 +73,34 @@ header {
     border: solid 1px black;
     background-color: rgb(0, 255, 0);
   }
+
+  .dashboard-info p {
+      margin: 20px 0;
+      font-size: 24px;
+      text-align: center;
+  }
+  
+  .dashboard-info a {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 18px;
+      text-decoration: none;
+      color: #fff;
+      background-color: #007BFF;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .dashboard-info a:hover {
+      background-color: #0056b3;
+  }
+  
+  .dashboard-info a:first-child {
+      margin-right: 20px;
+  }
+  
+  .dashboard-info a:last-child {
+      margin-left: 20px;
+  }
+ 
+  
