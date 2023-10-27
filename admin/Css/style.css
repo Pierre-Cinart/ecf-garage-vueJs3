@@ -1,8 +1,9 @@
-
+#logoutItem{display:block}
 header {
   background-color: rgb(71, 71, 71);
   
 }
+.d-n{display:none;}
 .nav-link{
   color:white;
 }
@@ -103,4 +104,8 @@ header {
       margin-left: 20px;
   }
  
-  
+  @media (min-width: 1000px) {
+    #logoutItem {
+        display: block !important;
+    }
+}

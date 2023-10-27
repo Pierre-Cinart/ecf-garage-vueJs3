@@ -74,5 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //        scripts
     include_once("./phpComponents/script.php")
     ?>
+
+
+
+
 </body>
 </html>
