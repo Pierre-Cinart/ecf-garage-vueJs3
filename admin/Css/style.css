@@ -18,14 +18,15 @@ header {
 .logo{
   width: 50px;
 }
-.connect-form {
+.connect-form , .admin-form {
     width: 320px;
     height: auto;
     margin: auto;
+    margin-top : 25px;
     background-color: rgba(160, 159, 159, 0.281);
     box-shadow: 0px 0px 8px 5px rgba(128, 0, 0, 0.555);
   }
-  .connect-form h2 {
+  .connect-form h2 ,.admin-form h2 {
     color: beige;
     background-color: black;
     font-family: "Tilt Neon", sans-serif;
