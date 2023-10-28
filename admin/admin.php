@@ -5,8 +5,6 @@ if (!$_SESSION["log_in"]||$_SESSION["admin"]=="n"){
     header('Location:index.php');
     exit();
 }
-//verifier si les données post existent les traiter et renvoyer un message d 'info
-//renvoyer vers admin.php si succés , ou signaler l ' erreur
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,9 +18,11 @@ if (!$_SESSION["log_in"]||$_SESSION["admin"]=="n"){
     <div class = "btn-connect"></div>
     <p>connecté en tant que <?php echo $_SESSION["user"]?></p>
    </div>
-   <div class="admin-form">
-    <!-- redirige vers un formulaire d 'inscription du personnel addAmin.php -->
-
+   <div class="search-admin">
+    <!-- creer une barre de recherche qui permet de rechercher un membre du personnel -->
+   </div>
+   <div class="show-admins">
+    <!-- creer un bouton pour voir l ensemble du personnel  -->
    </div>
    <?php include_once ("./phpComponents/script.php");?>
 </body>

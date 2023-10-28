@@ -18,6 +18,14 @@ if (!$_SESSION["log_in"]){
     <div class = "btn-connect"></div>
     <p>connecté en tant que <?php echo $_SESSION["user"]?></p>
    </div>
+   <div class="dashboard-info">
+    <!-- afficher un bouton messages validés et un bouton messages à valider type submit post  -->
+    <!-- gérer l affichage avec pagination lors du clique + flèche de retour en haut et bas de div -->
+   </div>
+   <div id="show-list">
+    <!-- gérer l affichage avec pagination lors du clique + flèche de retour en haut et bas de div -->
+    <!-- cf partie front pour pagination et affichage creer une fonction javascript et requete fetch async -->
+   </div>
    <?php include_once ("./phpComponents/script.php");?>
 </body>
 </html>

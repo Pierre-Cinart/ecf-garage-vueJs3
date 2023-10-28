@@ -21,7 +21,10 @@
                             <a class="nav-link <?php if ($currentPage == 'adminCars') echo 'active'; ?>" href="./adminCars.php">Véhicules</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            <a class="nav-link <?php if ($currentPage == 'adminArticles') echo 'active'; ?>" href="./adminArticles.php">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" aria-disabled="true">Gérer le personnel</a>
                         </li>
                     </ul>
                 </div>

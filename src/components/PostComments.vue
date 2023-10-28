@@ -9,8 +9,8 @@
         <br><br>
       </div>
       <textarea v-model="newComment.content" rows="5" placeholder="Votre commentaire" required></textarea>
-      <!-- Ajoutez une div pour le widget reCAPTCHA -->
-      <div id="recaptchaComment"></div> <!-- Utilisez un identifiant unique, par exemple, "recaptchaComment" -->
+      <!-- Ajout d une div pour le widget reCAPTCHA -->
+      <div id="recaptchaComment"></div> <!-- Utiliser un identifiant unique, par exemple, "recaptchaComment" -->
       <button type="submit">Poster le commentaire</button>
     </form>
   </div>
@@ -43,7 +43,7 @@ export default {
         return;
       }
       try {
-        // Exécutez reCAPTCHA avant d'envoyer le commentaire
+        // Exécution reCAPTCHA avant d'envoyer le commentaire
         const recaptchaToken = await this.$recaptcha('comment'); // Utilisez le bon nom de l'action, par exemple, 'comment'
 
         if (recaptchaToken) {
@@ -69,7 +69,7 @@ export default {
           console.error('Veuillez cocher la case "Je ne suis pas un robot".');
         }
       } catch (error) {
-        // En cas d'erreur, affichez un message d'erreur ici et affichez l'erreur dans la console
+        // En cas d'erreur, affiche un message d'erreur dans la console
         console.error("Une erreur s'est produite lors de la création du commentaire.", error);
       }
     },
@@ -86,7 +86,7 @@ export default {
 </script>
 
 <style scoped>
-/* Styles spécifiques au composant PostComment.vue */
+
 .post_comment {
   max-width: 600px;
   margin: 0 auto;
