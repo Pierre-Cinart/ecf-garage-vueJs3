@@ -36,6 +36,8 @@ require_once('../backend/bdd.php');
         ?>
         <p><a href="./adminComments.php"><?php echo "Commentaires à traiter : " . $commentsCount; ?></a></p>
         <p><a href="./adminMessages.php"><?php echo "Messages à traiter : " . $messagesCount; ?></a></p>
+        <p><a href="./adminCars.php"><?php echo "Gérer les véhicules" ?></a></p>
+        <p><a href="./adminArticles.php"><?php echo "Modifier les articles" ?></a></p>
     </div>
     <?php include_once ("./phpComponents/script.php");?>
 </body>

@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="sep"></div>
         <div class="connect-form">
             <legend><h2>Connexion</h2></legend>
-            <form method="POST" action="">
+            <form method="POST" action="index.php" id = "connect-form">
                 <div class="form-box">
                     <label for="email">Identifiant :</label>
                     <input type="email" name="email" id="email" placeholder=" adresse e-mail">
@@ -74,6 +74,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //        scripts
     include_once("./phpComponents/script.php")
     ?>
+    <script>
+   function onSubmit(token) {
+     document.getElementById("connect-form").submit();
+   }
+ </script>
 
 
 

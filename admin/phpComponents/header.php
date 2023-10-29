@@ -24,7 +24,7 @@
                             <a class="nav-link <?php if ($currentPage == 'addArticles') echo 'active' ?>" href="./adminArticles.php">Articles</a>
                         </li>
                        <?php 
-                            if ($_SESSION["admin"] == "y" ){
+                            if (isset($_SESSION["admin"]) && $_SESSION["admin"] == "y" ){
                                 echo '<li class="nav-item"><a class="nav-link';
                                 if ($currentPage == 'addAdmin') {
                                     echo ' active'; 
@@ -44,13 +44,13 @@
     </header>
     <script>
   
-  // Sélectionnez le bouton de menu déroulant
+  // Sélectionne le bouton de menu déroulant
   var menuButton = document.querySelector(".navbar-toggler");
   
-  // Sélectionnez l'élément parent du lien de déconnexion (nav-item)
+  // Sélectionne l'élément parent du lien de déconnexion (nav-item)
   var logoutNavItem = document.querySelector("#logoutItem");
   
-  // Vérifiez si le nom de la page actuelle est "index.php"
+  // Vérifie si le nom de la page actuelle est "index.php"
   var currentPage = window.location.pathname.split("/").pop();
   if (currentPage === "index.php") {
       // Si la page est "index.php", ajoutez la classe "disabled" à l'élément enfant "nav-link"
@@ -58,13 +58,13 @@
       logoutLink.classList.add("disabled");
   }
   
-  // Créez une fonction pour gérer la visibilité de "Déconnexion"
+  //  fonction pour gérer la visibilité de "Déconnexion"
   function toggleLogoutVisibility() {
       if (menuButton.getAttribute("aria-expanded") === "true") {
-          // Le menu est ouvert, affichez l'élément "Déconnexion"
+          //  menu est ouvert, affiche l'élément "Déconnexion"
           logoutNavItem.style.display = "block";
       } else {
-          // Le menu est fermé, masquez l'élément "Déconnexion"
+          // menu est fermé, masque l'élément "Déconnexion"
           logoutNavItem.style.display = "none";
       }
   }
