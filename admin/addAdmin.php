@@ -5,8 +5,8 @@ if (!$_SESSION["log_in"] || $_SESSION["admin"] !="y"){
     header('Location:index.php');
     exit();
 }
-//verifier si les données post existent les traiter et renvoyer un message d 'info
-//renvoyer vers admin.php si succés , ou signaler l ' erreur si les posts sont set 
+
+
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -26,18 +26,23 @@ if (!$_SESSION["log_in"] || $_SESSION["admin"] !="y"){
             <legend><h2>Inscription du personnel</h2></legend>
             <form method="POST" action="addAdmin.php">
                 <div class="form-box">
-                    <label for="email">Identifiant :</label>
-                    <input type="email" name="email" id="email" placeholder=" adresse e-mail">
-                </div>
-                <br>
-                <div class="form-box">
                     <label for="firstname">Prénom :</label>
-                    <input type="firstname" name="firstname" id="firstname" placeholder="Prénom">
+                    <input type="firstname" name="firstname" id="firstname" placeholder="Prénom"required>
                 </div>
                 <br>
                 <div class="form-box">
                     <label for="name">Nom :</label>
-                    <input type="name" name="name" id="name" placeholder="Nom">
+                    <input type="name" name="name" id="name" placeholder="Nom"required>
+                </div>
+                <br>
+                <div class="form-box">
+                    <label for="email">Identifiant :</label>
+                    <input type="email" name="email" id="email" placeholder=" adresse e-mail"required>
+                </div>
+                <br>
+                <div class="form-box">
+                    <label for="confirm_email">Confirm E-mail :</label>
+                    <input type="email" name="confirm_email" placeholder=" confirmation de l' e-mail" required>
                 </div>
                 <br>
                 <div class="btn-sub">

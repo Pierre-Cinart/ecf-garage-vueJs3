@@ -105,6 +105,29 @@ header {
       margin-left: 20px;
   }
  
+  #show-article{
+    position: relative;
+    border: solid 1px black;
+    width:90%;
+    margin: auto;
+  }
+  #show-article input , #show-article h2{
+    padding: 15px;
+    
+  }
+  #show-article form textarea{
+    width: 90%;
+    min-height: 200px;
+    margin-left:5%;
+    
+  } 
+  .float-r{
+    
+    padding:5px!important;
+    position: absolute;
+    right: 0;
+    top: 100%;
+  }
   @media (min-width: 1000px) {
     #logoutItem {
         display: block !important;

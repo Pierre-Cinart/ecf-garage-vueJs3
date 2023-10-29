@@ -1,10 +1,31 @@
 <?php
 session_start();
+$articleValue ="";
 $currentPage = 'adminArticles';
+require_once("../backend/bdd.php");
+
 if (!$_SESSION["log_in"]){
     header('Location:index.php');
     exit();
 }
+if (isset($_GET['article'])) {
+    $article = htmlspecialchars($_GET['article']);
+}
+else {
+    $article = "";
+}
+
+if ($article != "") {
+    $query = "SELECT content FROM articles WHERE title = '$article' LIMIT 1";
+    $result = $bdd->query($query);
+    if ($result){
+        $row = $result->fetch_assoc();
+        $articleValue = html_entity_decode($row['content']);
+    }
+}
+//configurer l article à afficher
+// si $article !="" et que dans la table articles il existe une column avec le title = $article
+// $articleValue = le champs article content 
  ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,6 +49,11 @@ if (!$_SESSION["log_in"]){
     </div>
     <div id="show-article">
     <!-- gérer l affichage de l article concerné dans un text-area pour pouvoir le modifier -->
+    <form method = "POST" action="adminArticles">
+        <h2>Entrer la mise à jour de l article : </h2>
+        <textarea name="txt-area" rows="12" ><?php  echo $articleValue ?></textarea><br>
+    </form>
+    <input class="btn-sub float-r" type="submit" value="valider">
     <!-- ajouter un bouton submit et creer une fonction javascript et requete fetch async pour mettre à jour l article-->
     </div>
    
