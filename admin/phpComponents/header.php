@@ -29,7 +29,7 @@
                                 if ($currentPage == 'addAdmin') {
                                     echo ' active'; 
                                 }
-                                echo '"  href="./addAdmin.php" >Gérer le personnel</a></li>';
+                                echo '"  href="./admin.php" >Gérer le personnel</a></li>';
                             } else {
                                 echo '<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Gérer le personnel</a></li>';
                             }
@@ -69,13 +69,13 @@
       }
   }
   
-  // Appelez la fonction au chargement de la page
+  // Appele la fonction au chargement de la page
   toggleLogoutVisibility();
   
-  // Ajoutez un gestionnaire d'événements au bouton de menu déroulant
+  // Ajoute un gestionnaire d'événements au bouton de menu déroulant
   menuButton.addEventListener("click", toggleLogoutVisibility);
   
-  // Ajoutez un gestionnaire d'événements pour détecter le redimensionnement de la fenêtre
+  // Ajoute un gestionnaire d'événements pour détecter le redimensionnement de la fenêtre
   window.addEventListener("resize", toggleLogoutVisibility);
   
   
