@@ -37,7 +37,7 @@ $commentsTotal = $commentsOk + $commentsWait;
 <html lang="fr">
 <head>
     <?php include_once("./phpComponents/head.php"); ?>
-    <title>Document</title>
+    <title>Gestion des commentaires</title>
 </head>
 <body>
     <?php include_once("./phpComponents/header.php"); ?>
@@ -55,12 +55,14 @@ $commentsTotal = $commentsOk + $commentsWait;
     <?php
         if ($ok == 1) {
             $_SESSION['comments'] = "ok";
-            echo "Commentaires validés : ";
+            echo "<h2>Commentaires validés : </h2>";
+            echo '<div class="sep"></div>';
             include_once('./phpFunctions/showComments.php');
             // Afficher ici les commentaires validés
         } elseif ($wait == 1) {
             $_SESSION['comments'] = "wait";
-            echo "Commentaires à traiter : ";
+            echo "<h2>Commentaires à traiter :</h2> ";
+            echo '<div class="sep"></div>';
             include_once('./phpFunctions/showComments.php');
             // Afficher ici les commentaires à traiter
         }

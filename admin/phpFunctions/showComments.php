@@ -27,16 +27,32 @@ $totalPages = ceil($totalComments / $perPage);
 $query = "SELECT * FROM comments WHERE comment_status = '$commentsStatus' LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($bdd, $query);
 
-// Affiche les commentaires
+//affichage des commentaires
 while ($row = $result->fetch_assoc()) {
     // Affiche chaque commentaire dans votre HTML
     echo '<div class="comment-box">';
     echo '<p class="comment-name">' . $row['firstname'] .' '. $row['lastname'] . '</p>';
     echo '<p class="comment-date"> le : ' . $row['comment_date'] . '</p>';
-    echo '<div class="comment-box">';
-    echo '<p class="comment-text">' . $row['comment_text'] . '</p>';
+        echo '<div class="comment-choice">';
+        echo '<p class="comment-text">' . $row['comment_text'] . '</p>';
+
+    // Formulaire pour valider un commentaire avec une icône de validation
+        echo '<form action="./phpFunctions/modifComment.php" method="post">';
+            echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
+            echo '<input type="hidden" name="action" value="validate">';
+            echo '<button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>';
+            echo '</form>';
+
+            // Formulaire pour supprimer un commentaire avec une icône de corbeille
+            echo '<form action="./phpFunctions/modifComment.php" method="post">';
+            echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
+            echo '<input type="hidden" name="action" value="delete">';
+            echo '<button type="submit" class="icon-button bg-red"><i class="fas fa-trash-alt"></i></button>';
+        echo '</form>';
+
+        echo '</div>';
     echo '</div>';
-    echo '</div>';
+    echo '<div class="sep"></div>';
 }
 
 // Liens de pagination (page précédente et page suivante)

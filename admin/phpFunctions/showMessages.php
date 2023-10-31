@@ -35,6 +35,7 @@ while ($row = $result->fetch_assoc()) {
     echo '<p class="comment-date"> le : ' . $row['message_date'] . '</p>';
     echo '<div class="comment-box">';
     echo '<p class="comment-text">' . $row['message_text'] . '</p>';
+   
     echo '</div>';
     echo '</div>';
 }
