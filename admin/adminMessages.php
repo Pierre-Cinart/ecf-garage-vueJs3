@@ -77,11 +77,13 @@ $messagesTotal = $messagesOk + $messagesWait;
             if ($ok == 1) {
                 $_SESSION['messages'] = "ok";
                 echo "Commentaires validés : ";
+                echo '<div class="sep"></div>';
                 include_once('./phpFunctions/showMessages.php');
                 // Afficher ici les commentaires validés
             } elseif ($wait == 1) {
                 $_SESSION['messages'] = "wait";
                 echo "Commentaires à traiter : ";
+                echo '<div class="sep"></div>';
                 include_once('./phpFunctions/showMessages.php');
                 // Afficher ici les commentaires à traiter
             }
