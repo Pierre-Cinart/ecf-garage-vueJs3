@@ -37,12 +37,15 @@ while ($row = $result->fetch_assoc()) {
     echo '<p class="comment-text">' . $row['comment_text'] . '</p>';
     
     // Formulaire pour valider un commentaire avec une icône de validation
-    echo '<div class="comment-ico">';
-    echo '<form action="./phpFunctions/modifComment.php" method="post">';
-    echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
-    echo '<input type="hidden" name="action" value="validate">';
-    echo '<button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>';
-    echo '</form>';
+    if ($commentsStatus == "wait"){ // le bouton validé n apparait que si les commentaires n ont pas étaient validés
+        echo '<div class="comment-ico">';
+        echo '<form action="./phpFunctions/modifComment.php" method="post">';
+        echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
+        echo '<input type="hidden" name="action" value="validate">';
+        echo '<button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>';
+        echo '</form>';
+    }
+    
     
     // Formulaire pour supprimer un commentaire avec une icône de corbeille
     echo '<form action="./phpFunctions/modifComment.php" method="post">';
