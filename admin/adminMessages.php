@@ -2,7 +2,7 @@
 session_start();
 $currentPage = 'adminMessages';
 
-if (!isset($_SESSION["log_in"])) {
+if (!$_SESSION["log_in"]) {
     header('Location: logout.php');
     exit();
 }
@@ -27,8 +27,30 @@ while ($row = mysqli_fetch_assoc($resultMessages)) {
 }
 
 // Gérer les paramètres GET pour afficher les messages correspondants
-$wait = isset($_GET['wait']) && $_GET['wait'] == 1 ? 1 : 0;
-$ok = isset($_GET['ok']) && $_GET['ok'] == 1 ? 1 : 0;
+if (!isset($_GET["ok"]) || (isset($_GET["ok"]) && $_GET["ok"] != 1)) {
+    $ok = 0;
+}
+if (isset($_GET["ok"]) && $_GET["ok"] == 1) {
+    $ok = 1;
+}
+if (!isset($_GET["wait"]) || (isset($_GET["wait"]) && $_GET["wait"] != 1)) {
+    $wait = 0;
+}
+if (isset($_GET["wait"]) && $_GET["wait"] == 1) {
+    $wait = 1;
+}
+// Requête SQL pour compter les commentaires en attente de traitement
+$querymessages = "SELECT COUNT(*) FROM messages WHERE message_status = 'wait'";
+$resultmessages = mysqli_query($bdd, $querymessages);
+$messagesWait = mysqli_fetch_array($resultmessages)[0];
+
+// Requête SQL pour compter les commentaires validés
+$querymessagesOk = "SELECT COUNT(*) FROM messages WHERE message_status = 'ok'";
+$resultmessagesOk = mysqli_query($bdd, $querymessagesOk);
+$messagesOk = mysqli_fetch_array($resultmessagesOk)[0];
+
+// Total des commentaires
+$messagesTotal = $messagesOk + $messagesWait;
 ?>
 
 <!DOCTYPE html>
@@ -44,21 +66,26 @@ $ok = isset($_GET['ok']) && $_GET['ok'] == 1 ? 1 : 0;
         <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
     </div>
     <div class="dashboard-info">
-        <!-- Boutons Messages à traiter / Messages validés -->
-        <p><a href="./adminMessages.php?wait=1&ok=0"><?php echo "Messages à traiter : " . $messagesWait; ?></a></p>
-        <p><a href="./adminMessages.php?wait=0&ok=1"><?php echo "Messages traités : " . $messagesOk; ?></a></p>
+        <!-- Afficher un bouton Commentaires à traiter et un bouton Commentaires validés -->
+        <p><a href="./adminMessages.php?wait=1"><?php echo "Messages à traiter : " . $messagesWait; ?></a></p>
+        <p><a href="./adminMessages.php?ok=1"><?php echo "Messages traités : " . $messagesOk; ?></a></p>
+        <!-- Gérer l'affichage avec pagination lors du clic + flèches de retour en haut et en bas de la div -->
     </div>
     <div id="show-list">
-        <!-- Gérer l'affichage des Messages ici (pagination, etc.) -->
         <?php
-        if ($ok === 1) {
-            echo "Messages validés : ";
-            // Afficher ici les messages validés
-        } elseif ($wait === 1) {
-            echo "Messages à traiter : ";
-            // Afficher ici les messages à traiter
-        }
-        ?>
+      
+            if ($ok == 1) {
+                $_SESSION['messages'] = "ok";
+                echo "Commentaires validés : ";
+                include_once('./phpFunctions/showMessages.php');
+                // Afficher ici les commentaires validés
+            } elseif ($wait == 1) {
+                $_SESSION['messages'] = "wait";
+                echo "Commentaires à traiter : ";
+                include_once('./phpFunctions/showMessages.php');
+                // Afficher ici les commentaires à traiter
+            }
+        ?> 
     </div>
     <?php include_once("./phpComponents/script.php"); ?>
 </body>
