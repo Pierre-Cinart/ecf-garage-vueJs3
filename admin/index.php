@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user["password_hash"])) {
         $_SESSION["log_in"]=true;
         $_SESSION["user_id"] = $user["staff_id"];
-        $_SESSION["Token"] = createToken();
+        $_SESSION["token"] = createToken();
         $_SESSION["user"] = $user["firstname"] . " " . $user["name"];
         $_SESSION["admin"] = $user["admin"];
         $sql = $bdd->prepare('UPDATE staff SET token= ? WHERE staff_id = ?');
-        $sql->bind_param("si", $_SESSION["Token"], $_SESSION['user_id']);
+        $sql->bind_param("si", $_SESSION["token"], $_SESSION['user_id']);
         $sql->execute();
 
         header("Location: dashboard.php"); // Rediriger vers la page d'accueil après la connexion

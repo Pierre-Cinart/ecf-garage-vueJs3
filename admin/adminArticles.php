@@ -1,40 +1,46 @@
 <?php
 session_start();
-$articleValue = "";
-$currentPage = 'adminArticles';
-require_once("../backend/bdd.php");
-if (!isset($_SESSION['article'])) {
-    $_SESSION['article'] ="";
-}
-if (!$_SESSION["log_in"]) {
-    header('Location:index.php');
+//deconnexion automatique si user non autorisé
+if (!$_SESSION["log_in"]){
+    header('Location:logout.php');
     exit();
 }
+$currentPage = 'adminArticles'; //nom de page pour la navBar
+// accés bdd
+require_once("../backend/bdd.php");
+
+$articleValue = "";
+;
+
+//récupération du get pour recherché l
+
 
 if (isset($_GET['article'])) {
     $_SESSION['article'] = htmlspecialchars($_GET['article']);
+    if ($_SESSION['article'] != "") {
+        $query = "SELECT content FROM articles WHERE title = '{$_SESSION['article']}' LIMIT 1";
+        $result = $bdd->query($query);
+        if ($result) {
+            $row = $result->fetch_assoc();
+            $articleValue = ($row['content']);
+        }
+    } 
 }
+ 
 
-if ($_SESSION['article'] != "") {
-    $query = "SELECT content FROM articles WHERE title = '{$_SESSION['article']}' LIMIT 1";
-    $result = $bdd->query($query);
-    if ($result) {
-        $row = $result->fetch_assoc();
-        $articleValue = html_entity_decode($row['content']);
-    }
-}
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txt-area'])) {
+    //vérification du token
+    require_once('./phpFunctions/verifToken.php');
     // Récupérer le nouveau contenu du textarea
     $nouveauContenu = $_POST['txt-area'];
     
-
     // Mettre à jour l'article dans la base de données
     $requeteMiseAJour = $bdd->prepare("UPDATE articles SET content = ? WHERE title = ?");
     $requeteMiseAJour->bind_param("ss", $nouveauContenu, $_SESSION['article']);
     
-    if ($requeteMiseAJour->execute()) {
+    if ($requeteMiseAJour->execute()) {// a traier en pop up ...
         // Mise à jour réussie
         echo "L'article a été mis à jour avec succès.";
     } else {

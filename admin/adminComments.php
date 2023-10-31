@@ -2,7 +2,7 @@
 session_start();
 $currentPage = 'adminComments';
 if (!$_SESSION["log_in"]) {
-    header('Location:index.php');
+    header('Location:logout.php');
     exit();
 }
 require_once('../backend/bdd.php');

@@ -1,8 +1,8 @@
 <?php
 session_start();
-$currentPage = 'addAdmin';
+$currentPage = 'admin';
 if (!$_SESSION["log_in"]||$_SESSION["admin"]=="n"){
-    header('Location:index.php');
+    header('Location:logout.php');
     exit();
 }
  ?>
@@ -23,6 +23,9 @@ if (!$_SESSION["log_in"]||$_SESSION["admin"]=="n"){
    </div>
    <div class="show-admins">
     <!-- creer un bouton pour voir l ensemble du personnel  -->
+   </div>
+   <div class="add-admin">
+    <!-- creer un bouton qui redirige vers un formulaire d 'inscription du personnel addAmin.php -->
    </div>
    <?php include_once ("./phpComponents/script.php");?>
 </body>

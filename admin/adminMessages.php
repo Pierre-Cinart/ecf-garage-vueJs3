@@ -3,7 +3,7 @@ session_start();
 $currentPage = 'adminMessages';
 
 if (!$_SESSION["log_in"]) {
-    header('Location: index.php');
+    header('Location: logout.php');
     exit();
 }
 
@@ -46,7 +46,7 @@ $ok = isset($_GET['ok']) && $_GET['ok'] == 1 ? 1 : 0;
     <div class="dashboard-info">
         <!-- Boutons Messages à traiter / Messages validés -->
         <p><a href="./adminMessages.php?wait=1&ok=0"><?php echo "Messages à traiter : " . $messagesWait; ?></a></p>
-        <p><a href="./adminMessages.php?wait=0&ok=1"><?php echo "Messages validés : " . $messagesOk; ?></a></p>
+        <p><a href="./adminMessages.php?wait=0&ok=1"><?php echo "Messages traités : " . $messagesOk; ?></a></p>
     </div>
     <div id="show-list">
         <!-- Gérer l'affichage des Messages ici (pagination, etc.) -->
