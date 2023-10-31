@@ -1,4 +1,8 @@
 <?php
+// à faire
+//séparer le code en 2 et renoyer les infos de recherche en get
+//permettre la modification la suppression et l ajout de carte de véhicule
+//implémenter un system de recherche pour trier la page (marque, model)
 session_start();
 $currentPage = 'adminCars';
 if (!isset($_SESSION["log_in"])) {
