@@ -2,7 +2,7 @@
 session_start();
 $currentPage = 'adminMessages';
 
-if (!$_SESSION["log_in"]) {
+if (!isset($_SESSION["log_in"])) {
     header('Location: logout.php');
     exit();
 }

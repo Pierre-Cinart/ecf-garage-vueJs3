@@ -1,7 +1,7 @@
 <?php
 session_start();
 $currentPage = 'adminCars';
-if (!$_SESSION["log_in"]){
+if (!isset($_SESSION["log_in"])){
     header('Location:logout.php');
     exit();
 }

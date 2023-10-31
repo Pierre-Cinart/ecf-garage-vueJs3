@@ -1,5 +1,8 @@
 <?php
-
+if (!$_SESSION["log_in"] ){
+    header('Location:logout.php');
+    exit();
+}
 // Récupérer le jeton de l'utilisateur depuis la base de données
 
     // tester l id de l utilisateur / deconnexion si vide deconnecter

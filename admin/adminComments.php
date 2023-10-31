@@ -1,25 +1,24 @@
 <?php
 session_start();
 $currentPage = 'adminComments';
-if (!$_SESSION["log_in"]) {
-    header('Location:logout.php');
+if (!isset($_SESSION["log_in"])) {
+    header('Location: logout.php');
     exit();
 }
 require_once('../backend/bdd.php');
-// gestion de ok et wait pour l affichage des commentaires
-if (!isset($_GET["ok"]) || (isset($_GET["ok"]) && $_GET["ok"]!=1)) {
+// Gestion de ok et wait pour l'affichage des commentaires
+if (!isset($_GET["ok"]) || (isset($_GET["ok"]) && $_GET["ok"] != 1)) {
     $ok = 0;
 }
-if (isset($_GET["ok"])  && $_GET["ok"]==1) {
+if (isset($_GET["ok"]) && $_GET["ok"] == 1) {
     $ok = 1;
 }
-if (!isset($_GET["wait"]) || (isset($_GET["wait"]) && $_GET["wait"]!=1)) {
+if (!isset($_GET["wait"]) || (isset($_GET["wait"]) && $_GET["wait"] != 1)) {
     $wait = 0;
 }
-if (isset($_GET["wait"])  && $_GET["wait"]==1) {
+if (isset($_GET["wait"]) && $_GET["wait"] == 1) {
     $wait = 1;
 }
-
 
 // Requête SQL pour compter les commentaires en attente de traitement
 $queryComments = "SELECT COUNT(*) FROM comments WHERE comment_status = 'wait'";
@@ -34,7 +33,6 @@ $commentsOk = mysqli_fetch_array($resultCommentsOk)[0];
 // Total des commentaires
 $commentsTotal = $commentsOk + $commentsWait;
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -56,13 +54,17 @@ $commentsTotal = $commentsOk + $commentsWait;
     <div id="show-list">
     <?php
         if ($ok == 1) {
-            echo "commentaires validés : ";
-            // Afficher ici les comments validés
+            $_SESSION['comments'] = "ok";
+            echo "Commentaires validés : ";
+            include_once('./phpFunctions/showComments.php');
+            // Afficher ici les commentaires validés
         } elseif ($wait == 1) {
-            echo "commentaires à traiter : ";
-            // Afficher ici les comments à traiter
+            $_SESSION['comments'] = "wait";
+            echo "Commentaires à traiter : ";
+            include_once('./phpFunctions/showComments.php');
+            // Afficher ici les commentaires à traiter
         }
-        ?>
+    ?>
     </div>
     <?php include_once("./phpComponents/script.php"); ?>
 </body>
