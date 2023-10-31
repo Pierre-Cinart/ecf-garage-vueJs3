@@ -145,7 +145,11 @@ header {
   /* bouton valider et supprimé dans la gestion commentaires et messages */
   .comment-choice{
     display: flex;
+    justify-content: space-between;
     
+  }
+  .comment-box .comment-ico{
+    display: flex;
   }
   .bg-green{
     margin-right: 10px;
@@ -154,6 +158,7 @@ header {
     color: white;
   }
   .bg-red{
+    margin-right: 10px;
     background-color: red;
     color: white;
   }
