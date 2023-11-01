@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $query .= " ORDER BY c.car_price DESC";
             break;
         case 'marque':
-            $query .= " ORDER BY m.nom_marque ASC";
+            $query .= " ORDER BY m.mark_name ASC";
             break;
         case 'modele':
             $query .= " ORDER BY c.car_model ASC";

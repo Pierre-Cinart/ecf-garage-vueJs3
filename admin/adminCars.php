@@ -1,8 +1,4 @@
 <?php
-// à faire
-//séparer le code en 2 et renoyer les infos de recherche en get
-//permettre la modification la suppression et l ajout de carte de véhicule
-//implémenter un system de recherche pour trier la page (marque, model)
 session_start();
 $currentPage = 'adminCars';
 if (!isset($_SESSION["log_in"])) {
@@ -13,10 +9,29 @@ if (!isset($_SESSION["log_in"])) {
 // Inclure le fichier de connexion à la base de données
 require_once('../backend/bdd.php');
 
-// Requête SQL pour récupérer tous les véhicules
+// Gestion de la recherche
+$searchTerm = "";
+
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+    $searchTerm = mysqli_real_escape_string($bdd, $_GET['search']);
+    $searchQuery = "WHERE m.mark_name LIKE '%$searchTerm%' OR car_model LIKE '%$searchTerm'";
+} else {
+    $searchQuery = "";
+}
+
+// Gestion du tri
+$orderBy = "m.mark_name"; // Par défaut, triez par marque
+
+if (isset($_GET['sort_by']) && in_array($_GET['sort_by'], ['m.mark_name', 'car_model'])) {
+    $orderBy = $_GET['sort_by'];
+}
+
+// Requête SQL pour récupérer les véhicules avec les filtres et le tri
 $query = "SELECT c.*, m.mark_name AS car_mark, cl.color_name AS car_color FROM cars c
           LEFT JOIN marks m ON c.car_mark_id = m.mark_id
-          LEFT JOIN colors cl ON c.car_color_id = cl.color_id";
+          LEFT JOIN colors cl ON c.car_color_id = cl.color_id
+          $searchQuery
+          ORDER BY $orderBy";
 
 $result = mysqli_query($bdd, $query);
 
@@ -30,6 +45,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     $vehicles[] = $row;
 }
 ?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -42,10 +62,17 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="btn-connect"></div>
         <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
     </div>
-    <!-- afficher que si bouton ajouter un véhuicule est préssé -->
-    <!-- afficher carte vierge et creer un fichier php pour vérifier ajouter les infos en bdd  -->
-    <!-- afficher que si bouton modifier un véhuicule est préssé -->
-    <!-- gérer les options se recherche ici -->
+
+    <!-- Barre de recherche -->
+    <form method="GET" action="adminCars.php">
+        <input type="text" name="search" placeholder="Rechercher par marque ou modèle">
+        <select name="sort_by">
+            <option value="car_mark">Trier par Marque</option>
+            <option value="car_model">Trier par Modèle</option>
+        </select>
+        <button type="submit">Rechercher</button>
+    </form>
+
     <div class="gallery">
         <?php foreach ($vehicles as $vehicle) : ?>
             <div class="card">
@@ -54,8 +81,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <p><b>Kilométrage :</b> <?php echo $vehicle['car_km']; ?> km</p>
                     <p><b>Couleur :</b> <?php echo $vehicle['car_color']; ?></p>
                     <p><b>Prix :</b> <?php echo $vehicle['car_price']; ?> €</p>
-                    <!-- ajouter un bouton suprimer et modifier (icone engrenage) -->
-                    <!-- gerer l envoie d info en post selon les conditions -->
+                    <!-- ajouter un bouton supprimer et modifier (icone engrenage) -->
+                    <!-- gérer l'envoi d'info en POST selon les conditions -->
                 </div>
                 <div class="card-img">
                     <!-- Construire le chemin complet de l'image -->
