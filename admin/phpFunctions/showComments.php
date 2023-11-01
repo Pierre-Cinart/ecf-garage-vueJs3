@@ -24,8 +24,9 @@ $totalComments = mysqli_fetch_row($countResult)[0];
 $totalPages = ceil($totalComments / $perPage);
 
 // Requête SQL pour récupérer les commentaires de la page actuelle
-$query = "SELECT * FROM comments WHERE comment_status = '$commentsStatus' LIMIT $perPage OFFSET $offset";
+$query = "SELECT * FROM comments WHERE comment_status = '$commentsStatus' ORDER BY comment_date DESC LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($bdd, $query);
+
 
 // Création d'un tableau pour stocker les commentaires
 $commentBoxes = [];
