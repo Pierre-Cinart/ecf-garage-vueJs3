@@ -67,14 +67,14 @@ while ($row = $result->fetch_assoc()) {
 
         <div class="comment-ico">
             <?php if ($commentsStatus == "wait") : ?>
-                <form action="./phpFunctions/modifComment.php" method="post">
+                <form action="adminComments.php" method="post">
                     <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
                     <input type="hidden" name="action" value="validate">
                     <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
                 </form>
             <?php endif; ?>
 
-            <form action="./phpFunctions/modifComment.php" method="post">
+            <form action="adminComments.php" method="post">
                 <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
                 <input type="hidden" name="action" value="delete">
                 <button type="submit" class="icon-button bg-red"><i class="fas fa-trash-alt"></i></button>

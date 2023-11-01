@@ -32,6 +32,34 @@ $commentsOk = mysqli_fetch_array($resultCommentsOk)[0];
 
 // Total des commentaires
 $commentsTotal = $commentsOk + $commentsWait;
+
+// Traitement des actions de modification (valider ou supprimer)
+if (isset($_POST['commentId']) && isset($_POST['action'])) {
+    $commentId = $_POST['commentId'];
+    $action = $_POST['action'];
+
+    if ($action === 'validate') {
+        // Action de validation du commentaire
+        $updateQuery = "UPDATE comments SET comment_status = 'ok' WHERE comment_id = $commentId";
+        $result = mysqli_query($bdd, $updateQuery);
+
+        if ($result) {
+            // Commentaire validé avec succès, redirigez vers la page adminComments.php (commentaires validés)
+            header('Location: adminComments.php?ok=1');
+            exit();
+        }
+    } elseif ($action === 'delete') {
+        // Action de suppression du commentaire
+        $deleteQuery = "DELETE FROM comments WHERE comment_id = $commentId";
+        $result = mysqli_query($bdd, $deleteQuery);
+
+        if ($result) {
+            // Commentaire supprimé avec succès, redirigez vers la page adminComments.php (commentaires à traiter)
+            header('Location: adminComments.php?wait=1');
+            exit();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
