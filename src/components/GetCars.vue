@@ -25,7 +25,7 @@
         </div>
         <div class="card-img">
           <!-- Construire le chemin complet de l'image -->
-          <img class = "card-img" :src="'http://localhost/garrage-v-parrot-vue/backend/img/' + vehicle.car_mark + '/' + vehicle.car_picture" :alt="vehicle.car_mark + '/' + vehicle.car_picture">
+          <img class = "card-img" :src="'http://localhost/garage-v-parrot-vue/backend/img/' + vehicle.car_mark + '/' + vehicle.car_picture" :alt="vehicle.car_mark + '/' + vehicle.car_picture">
 
           <p>{{ vehicle.car_info }}</p>
         </div>

@@ -1,6 +1,3 @@
-<?php
-$recaptchaKey ='6LfHo7QoAAAAAEC54uF5IlK9iGscA1meFRFsThl2';
-?>
 
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,4 +6,5 @@ $recaptchaKey ='6LfHo7QoAAAAAEC54uF5IlK9iGscA1meFRFsThl2';
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&family=Ubuntu:ital,wght@1,300&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">

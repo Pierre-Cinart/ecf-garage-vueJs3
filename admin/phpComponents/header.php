@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <?php include_once ("./phpComponents/head.php");?>
-    <title>Titre de la page</title>
-</head>
-<body>
     <header>
+        
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><img class="logo" src="./logo_garage.png" alt="logo entreprise" srcset=""></a>
@@ -27,18 +21,62 @@
                             <a class="nav-link <?php if ($currentPage == 'adminCars') echo 'active'; ?>" href="./adminCars.php">Véhicules</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                            <a class="nav-link <?php if ($currentPage == 'addArticles') echo 'active' ?>" href="./adminArticles.php">Articles</a>
                         </li>
+                       <?php 
+                            if (isset($_SESSION["admin"]) && $_SESSION["admin"] == "y" ){
+                                echo '<li class="nav-item"><a class="nav-link';
+                                if ($currentPage == 'addAdmin') {
+                                    echo ' active'; 
+                                }
+                                echo '"  href="./admin.php" >Gérer le personnel</a></li>';
+                            } else {
+                                echo '<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Gérer le personnel</a></li>';
+                            }
+                       ?>
                     </ul>
                 </div>
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Déconnexion</a>
-                    </li>
-                </ul>
+                <li class="nav-item " id="logoutItem">
+                    <a class="nav-link " href="logout.php">Déconnexion</a>
+                </li>
             </div>
         </nav>
     </header>
-    <?php include_once ("./phpComponents/script.php");?>
-</body>
-</html>
+    <script>
+  
+  // Sélectionne le bouton de menu déroulant
+  var menuButton = document.querySelector(".navbar-toggler");
+  
+  // Sélectionne l'élément parent du lien de déconnexion (nav-item)
+  var logoutNavItem = document.querySelector("#logoutItem");
+  
+  // Vérifie si le nom de la page actuelle est "index.php"
+  var currentPage = window.location.pathname.split("/").pop();
+  if (currentPage === "index.php") {
+      // Si la page est "index.php", ajoutez la classe "disabled" à l'élément enfant "nav-link"
+      var logoutLink = logoutNavItem.querySelector(".nav-link");
+      logoutLink.classList.add("disabled");
+  }
+  
+  //  fonction pour gérer la visibilité de "Déconnexion"
+  function toggleLogoutVisibility() {
+      if (menuButton.getAttribute("aria-expanded") === "true") {
+          //  menu est ouvert, affiche l'élément "Déconnexion"
+          logoutNavItem.style.display = "block";
+      } else {
+          // menu est fermé, masque l'élément "Déconnexion"
+          logoutNavItem.style.display = "none";
+      }
+  }
+  
+  // Appele la fonction au chargement de la page
+  toggleLogoutVisibility();
+  
+  // Ajoute un gestionnaire d'événements au bouton de menu déroulant
+  menuButton.addEventListener("click", toggleLogoutVisibility);
+  
+  // Ajoute un gestionnaire d'événements pour détecter le redimensionnement de la fenêtre
+  window.addEventListener("resize", toggleLogoutVisibility);
+  
+  
+  </script>

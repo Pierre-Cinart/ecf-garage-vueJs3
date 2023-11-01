@@ -17,11 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($user && password_verify($password, $user["password_hash"])) {
         $_SESSION["log_in"]=true;
         $_SESSION["user_id"] = $user["staff_id"];
-        $_SESSION["Token"] = createToken();
+        $_SESSION["token"] = createToken();
         $_SESSION["user"] = $user["firstname"] . " " . $user["name"];
         $_SESSION["admin"] = $user["admin"];
         $sql = $bdd->prepare('UPDATE staff SET token= ? WHERE staff_id = ?');
-        $sql->bind_param("si", $_SESSION["Token"], $_SESSION['user_id']);
+        $sql->bind_param("si", $_SESSION["token"], $_SESSION['user_id']);
         $sql->execute();
 
         header("Location: dashboard.php"); // Rediriger vers la page d'accueil après la connexion
@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="sep"></div>
         <div class="connect-form">
             <legend><h2>Connexion</h2></legend>
-            <form method="POST" action="">
+            <form method="POST" action="index.php" id = "connect-form">
                 <div class="form-box">
                     <label for="email">Identifiant :</label>
                     <input type="email" name="email" id="email" placeholder=" adresse e-mail">
@@ -74,5 +74,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //        scripts
     include_once("./phpComponents/script.php")
     ?>
+    <script>
+   function onSubmit(token) {
+     document.getElementById("connect-form").submit();
+   }
+ </script>
+
+
+
+
 </body>
 </html>
