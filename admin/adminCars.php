@@ -14,9 +14,9 @@ if (!isset($_SESSION["log_in"])) {
 require_once('../backend/bdd.php');
 
 // Requête SQL pour récupérer tous les véhicules
-$query = "SELECT c.*, m.nom_marque AS car_mark, cl.nom_couleur AS car_color FROM cars c
-          LEFT JOIN marques m ON c.car_mark_id = m.marque_id
-          LEFT JOIN couleurs cl ON c.car_color_id = cl.couleur_id";
+$query = "SELECT c.*, m.mark_name AS car_mark, cl.color_name AS car_color FROM cars c
+          LEFT JOIN marks m ON c.car_mark_id = m.mark_id
+          LEFT JOIN colors cl ON c.car_color_id = cl.color_id";
 
 $result = mysqli_query($bdd, $query);
 
@@ -42,6 +42,10 @@ while ($row = mysqli_fetch_assoc($result)) {
         <div class="btn-connect"></div>
         <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
     </div>
+    <!-- afficher que si bouton ajouter un véhuicule est préssé -->
+    <!-- afficher carte vierge et creer un fichier php pour vérifier ajouter les infos en bdd  -->
+    <!-- afficher que si bouton modifier un véhuicule est préssé -->
+    <!-- gérer les options se recherche ici -->
     <div class="gallery">
         <?php foreach ($vehicles as $vehicle) : ?>
             <div class="card">
@@ -50,6 +54,8 @@ while ($row = mysqli_fetch_assoc($result)) {
                     <p><b>Kilométrage :</b> <?php echo $vehicle['car_km']; ?> km</p>
                     <p><b>Couleur :</b> <?php echo $vehicle['car_color']; ?></p>
                     <p><b>Prix :</b> <?php echo $vehicle['car_price']; ?> €</p>
+                    <!-- ajouter un bouton suprimer et modifier (icone engrenage) -->
+                    <!-- gerer l envoie d info en post selon les conditions -->
                 </div>
                 <div class="card-img">
                     <!-- Construire le chemin complet de l'image -->

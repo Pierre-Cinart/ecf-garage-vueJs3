@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sortOption = isset($_GET['sort_select']) ? $_GET['sort_select'] : '';
 
     // Requête SQL pour récupérer les véhicules en fonction des critères de recherche et de tri
-    $query = "SELECT c.*, m.nom_marque AS car_mark, cl.nom_couleur AS car_color FROM cars c
-              LEFT JOIN marques m ON c.car_mark_id = m.marque_id
-              LEFT JOIN couleurs cl ON c.car_color_id = cl.couleur_id
-              WHERE c.car_model LIKE '%$searchTerm%' OR m.nom_marque LIKE '%$searchTerm%'";
+    $query = "SELECT c.*, m.mark_name AS car_mark, cl.color_name AS car_color FROM cars c
+        LEFT JOIN marks m ON c.car_mark_id = m.mark_id
+        LEFT JOIN colors cl ON c.car_color_id = cl.color_id
+        WHERE c.car_model LIKE '%$searchTerm%' OR m.mark_name LIKE '%$searchTerm%'";
+
 
     // Modifier la requête en fonction de l'option de tri
     switch ($sortOption) {
