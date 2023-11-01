@@ -27,60 +27,86 @@ $totalPages = ceil($totalComments / $perPage);
 $query = "SELECT * FROM comments WHERE comment_status = '$commentsStatus' LIMIT $perPage OFFSET $offset";
 $result = mysqli_query($bdd, $query);
 
-//affichage des commentaires
+// Création d'un tableau pour stocker les commentaires
+$commentBoxes = [];
+
+// Remplissage du tableau avec les commentaires
 while ($row = $result->fetch_assoc()) {
-    // Affiche chaque commentaire dans votre HTML
-    echo '<div class="comment-box">';
-    echo '<p class="comment-name">' . $row['firstname'] .' '. $row['lastname'] . '</p>';
-    echo '<p class="comment-date"> le : ' . $row['comment_date'] . '</p>';
-    echo '<div class="comment-choice">';
-    echo '<p class="comment-text">' . $row['comment_text'] . '</p>';
-    
-    // Formulaire pour valider un commentaire avec une icône de validation
-    if ($commentsStatus == "wait"){ // le bouton validé n apparait que si les commentaires n ont pas étaient validés
-        echo '<div class="comment-ico">';
-        echo '<form action="./phpFunctions/modifComment.php" method="post">';
-        echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
-        echo '<input type="hidden" name="action" value="validate">';
-        echo '<button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>';
-        echo '</form>';
-    }
-    
-    
-    // Formulaire pour supprimer un commentaire avec une icône de corbeille
-    echo '<form action="./phpFunctions/modifComment.php" method="post">';
-    echo '<input type="hidden" name="commentId" value="' . $row['comment_id'] . '">';
-    echo '<input type="hidden" name="action" value="delete">';
-    echo '<button type="submit" class="icon-button bg-red"><i class="fas fa-trash-alt"></i></button>';
-    echo '</form>';
-    echo '</div>'; // fin de comment-ico
-    echo '</div>'; // fin de comment-choice
-    echo '</div>'; // fin de comment-box
-    echo '<div class="sep"></div>';
-}
+    $commentBox = [
+        'name' => $row['firstname'] . ' ' . $row['lastname'],
+        'date' => 'le : ' . $row['comment_date'],
+        'text' => $row['comment_text'],
+        'commentId' => $row['comment_id']
+    ];
 
-// Liens de pagination (page précédente et page suivante)
-$previousPage = $currentPageShow - 1;
-$nextPage = $currentPageShow + 1;
-
-// Vérifie s'il y a une page précédente
-$hasPreviousPage = ($currentPageShow > 1);
-
-// Vérifie s'il y a une page suivante
-$hasNextPage = ($currentPageShow < $totalPages);
-
-echo '<div class="pagination">';
-if ($commentsStatus == "ok") {
-    $linkStatus = "ok=1";
-} elseif ($commentsStatus == "wait") {
-    $linkStatus = "wait=1";
+    $commentBoxes[] = $commentBox;
 }
-if ($hasPreviousPage) {
-    echo '<a href="adminComments.php?' . $linkStatus . '&page=' . $previousPage . '">Page précédente</a>';
-}
-echo '<p>' . $currentPageShow . '</p>';
-if ($hasNextPage) {
-    echo '<a href="adminComments.php?' . $linkStatus . '&page=' . $nextPage . '">Page suivante</a>';
-}
-echo '</div>';
 ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <?php include_once("./phpComponents/head.php"); ?>
+    <title>Gestion des commentaires</title>
+</head>
+<body>
+    <?php include_once("./phpComponents/header.php"); ?>
+    <div class="connect-info">
+        <div class="btn-connect"></div>
+        <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
+    </div>
+
+    <div class="comments">
+    <?php foreach ($commentBoxes as $comment) : ?>
+    <div class="comment-box">
+        <div>
+            <p class="comment-name"><?= $comment['name'] ?></p>
+            <p class="comment-date"><?= $comment['date'] ?></p>
+            <p class="comment-text"><?= $comment['text'] ?></p>
+        </div>
+
+        <div class="comment-ico">
+            <?php if ($commentsStatus == "wait") : ?>
+                <form action="./phpFunctions/modifComment.php" method="post">
+                    <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
+                    <input type="hidden" name="action" value="validate">
+                    <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
+                </form>
+            <?php endif; ?>
+
+            <form action="./phpFunctions/modifComment.php" method="post">
+                <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
+                <input type="hidden" name="action" value="delete">
+                <button type="submit" class="icon-button bg-red"><i class="fas fa-trash-alt"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="sep"></div>
+<?php endforeach; ?>
+
+
+    </div>
+
+    <div class="pagination">
+        <?php
+        if ($commentsStatus == "ok") {
+            $linkStatus = "ok=1";
+        } elseif ($commentsStatus == "wait") {
+            $linkStatus = "wait=1";
+        }
+        $previousPage = $currentPageShow - 1;
+        $nextPage = $currentPageShow + 1;
+        $hasPreviousPage = ($currentPageShow > 1);
+        $hasNextPage = ($currentPageShow < $totalPages);
+
+        if ($hasPreviousPage) {
+            echo '<a href="adminComments.php?' . $linkStatus . '&page=' . $previousPage . '">Page précédente</a>';
+        }
+        echo '<p>' . $currentPageShow . '</p>';
+        if ($hasNextPage) {
+            echo '<a href="adminComments.php?' . $linkStatus . '&page=' . $nextPage . '">Page suivante</a>';
+        }
+        ?>
+    </div>
+</body>
+</html>
