@@ -36,7 +36,7 @@ if (isset($_GET['sort_by'])) {
     // Aucun tri spécial, utilisez la recherche par défaut
     $query = "SELECT c.*, m.mark_name AS car_mark, cl.color_name AS car_color FROM cars c
               LEFT JOIN marks m ON c.car_mark_id = m.mark_id
-              LEFT JOIN colors cl ON c.car_color_id is= cl.color_id
+              LEFT JOIN colors cl ON c.car_color_id = cl.color_id
               ORDER BY $orderBy";
 }
 
