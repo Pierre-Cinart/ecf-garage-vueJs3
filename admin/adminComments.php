@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $currentPage = 'adminComments';
 if (!isset($_SESSION["log_in"])) {
     header('Location: logout.php');
@@ -97,5 +98,6 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
     ?>
     </div>
     <?php include_once("./phpComponents/script.php"); ?>
+    <script src= "./js/confirmDelete.js"></script>
 </body>
 </html>

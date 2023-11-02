@@ -44,45 +44,36 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <?php include_once("./phpComponents/head.php"); ?>
-    <title>Gestion des commentaires</title>
-</head>
-<body>
-   
+
 
     <div class="comments">
-    <?php foreach ($commentBoxes as $comment) : ?>
-    <div class="comment-box">
-        <div>
-            <p class="comment-name"><?= $comment['name'] ?></p>
-            <p class="comment-date"><?= $comment['date'] ?></p>
-            <p class="comment-text"><?= $comment['text'] ?></p>
-        </div>
+        <?php foreach ($commentBoxes as $comment) : ?>
+            <div class="comment-box">
+                <div>
+                    <p class="comment-name"><?= $comment['name'] ?></p>
+                    <p class="comment-date"><?= $comment['date'] ?></p>
+                    <p class="comment-text"><?= $comment['text'] ?></p>
+                </div>
 
-        <div class="comment-ico">
-            <?php if ($commentsStatus == "wait") : ?>
-                <form action="adminComments.php" method="post">
-                    <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
-                    <input type="hidden" name="action" value="validate">
-                    <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
-                </form>
-            <?php endif; ?>
+                <div class="comment-ico">
+                    <?php if ($commentsStatus == "wait") : ?>
+                        <form action="adminComments.php" method="post">
+                            <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
+                            <input type="hidden" name="action" value="validate">
+                            <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
+                        </form>
+                    <?php endif; ?>
 
-            <form action="adminComments.php" method="post">
-                <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
-                <input type="hidden" name="action" value="delete">
-                <button type="submit" class="icon-button bg-red"><i class="fas fa-trash-alt"></i></button>
-            </form>
-        </div>
+                    <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
+                    <button class="icon-button bg-red" onclick="confirmDelete('adminComments.php', <?= $comment['commentId'] ?>)"><i class="fas fa-trash-alt"></i></button>
+                </div>
+            </div>
+            <div class="sep"></div>
+        <?php endforeach; ?>
     </div>
-    <div class="sep"></div>
-<?php endforeach; ?>
 
 
-    </div>
+
 
     <div class="pagination">
         <?php
@@ -105,5 +96,4 @@ while ($row = $result->fetch_assoc()) {
         }
         ?>
     </div>
-</body>
-</html>
+
