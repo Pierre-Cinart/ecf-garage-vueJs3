@@ -51,11 +51,7 @@ while ($row = $result->fetch_assoc()) {
     <title>Gestion des commentaires</title>
 </head>
 <body>
-    <?php include_once("./phpComponents/header.php"); ?>
-    <div class="connect-info">
-        <div class="btn-connect"></div>
-        <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
-    </div>
+   
 
     <div class="comments">
     <?php foreach ($commentBoxes as $comment) : ?>

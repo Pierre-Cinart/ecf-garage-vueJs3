@@ -29,15 +29,15 @@ $result = mysqli_query($bdd, $query);
 
 // Affiche les commentaires
 while ($row = $result->fetch_assoc()) {
-    // Affiche chaque commentaire dans votre HTML
-    echo '<div class="comment-box">';
-    echo '<p class="comment-name">' . $row['firstname'] .' '. $row['lastname'] . '</p>';
-    echo '<p class="comment-date"> le : ' . $row['message_date'] . '</p>';
-    echo '<div class="comment-box">';
-    echo '<p class="comment-text">' . $row['message_text'] . '</p>';
-   
-    echo '</div>';
-    echo '</div>';
+    // Affiche chaque message 
+        echo '<div class="msg">';
+            echo '<p class="comment-name">' . $row['firstname'] .' '. $row['lastname'] . '</p>';
+            echo '<p class="comment-date"> le : ' . $row['message_date'] . '</p>';
+            echo '<p class="comment-text"> <strong>sujet :</strong> ' . $row['message_subject'] . '</p>'; 
+            echo '<button class = "btn-sub "><a href="openMessage.php"> ouvrir </a></button>'; 
+        echo '</div>';
+        echo '<div class="sep"></div>';
+       
 }
 
 // Liens de pagination (page précédente et page suivante)

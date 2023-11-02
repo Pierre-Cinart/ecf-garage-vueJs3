@@ -147,7 +147,7 @@ header {
   }
   /* bouton valider et supprimé dans la gestion commentaires et messages */
   
-  .comment-box .comment-ico{
+  .comment-ico {
     display: flex;
     
   }
@@ -162,6 +162,18 @@ header {
     background-color: red;
     color: white;
   }
+  /* messages */
+  .msg{
+    max-width: 250px;
+    margin: auto;
+  }
+  button.btn-sub{
+    margin: auto;
+  }
+  button.btn-sub a{
+    text-decoration: none;
+    color: black;
+  }
   /* véhicules */
   .gallery {
     padding: 15px;
@@ -172,6 +184,7 @@ header {
   }
   
   .card {
+    position: relative;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -212,6 +225,12 @@ header {
     padding: 5px 10px;
     border-radius: 4px;
     text-decoration: none;
+  }
+  .card-ico{
+    display: flex;
+    position: absolute;
+    
+    right: 2%;   
   }
   @media (min-width: 1000px) {
     #logoutItem {

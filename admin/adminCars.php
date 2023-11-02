@@ -78,21 +78,32 @@ while ($row = mysqli_fetch_assoc($result)) {
     <a href="addCar.php">Ajouter un nouveau véhicule</a>
 
     <div class="gallery">
-        <?php foreach ($vehicles as $vehicle) : ?>
-            <div class="card">
-                <div class ="card-txt">
-                    <h3><?php echo $vehicle['car_mark'] . ' ' . $vehicle['car_model']; ?></h3>
-                    <p><b>Kilométrage :</b> <?php echo $vehicle['car_km']; ?> km</p>
-                    <p><b>Couleur :</b> <?php echo $vehicle['car_color']; ?></p>
-                    <p><b>Prix :</b> <?php echo $vehicle['car_price']; ?> €</p>
-                </div>
-                <div class="card-img">
-                    <img class="card-img" src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $vehicle['car_mark'] . '/' . $vehicle['car_picture']; ?>" alt="<?php echo $vehicle['car_mark'] . '/' . $vehicle['car_picture']; ?>">
-                    <p><?php echo $vehicle['car_info']; ?></p>
+    <?php foreach ($vehicles as $vehicle) : ?>
+        <div class="card">
+            <div class ="card-txt">
+                <h3><?php echo $vehicle['car_mark'] . ' ' . $vehicle['car_model']; ?></h3>
+                <p><b>Kilométrage :</b> <?php echo $vehicle['car_km']; ?> km</p>
+                <p><b>Couleur :</b> <?php echo $vehicle['car_color']; ?></p>
+                <p><b>Prix :</b> <?php echo $vehicle['car_price']; ?> €</p>
+            </div>
+            <div class="card-img">
+                <img class="card-img" src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $vehicle['car_mark'] . '/' . $vehicle['car_picture']; ?>" alt="<?php echo $vehicle['car_mark'] . '/' . $vehicle['car_picture']; ?>">
+                <p><?php echo $vehicle['car_info']; ?></p>
+                <div class="card-ico">
+                    <form action="modifCar.php" method="post">
+                        <input type="hidden" name="carId" value="<?php echo $vehicle['car_id']; ?>">
+                        <button type="submit" class="icon-button bg-green"><i class="fas fa-cog"></i></button>
+                    </form>
+                    <form action="deleteCar.php" method="post">
+                        <input type="hidden" name="carId" value="<?php echo $vehicle['car_id']; ?>">
+                        <button type="submit" class="icon-button bg-red"><i class="fas fa-trash"></i></button>
+                    </form>
                 </div>
             </div>
-        <?php endforeach; ?>
-    </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
     <?php include_once("./phpComponents/script.php"); ?>
 </body>
 </html>
