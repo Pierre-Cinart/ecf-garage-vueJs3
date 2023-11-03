@@ -25,6 +25,7 @@ header {
     margin-top : 25px;
     background-color: rgba(160, 159, 159, 0.281);
     box-shadow: 0px 0px 8px 5px rgba(128, 0, 0, 0.555);
+    
   }
   .connect-form h2 ,.admin-form h2 {
     color: beige;
@@ -55,6 +56,12 @@ header {
     font-family: "Ubuntu", sans-serif;
     font-size: 15px;
     font-weight: bold;
+  }
+  .car-form{
+    width:90%;
+    max-width: 500px;
+    min-width: 290px;
+    margin: auto;
   }
 /* info de connexion  */
 #popUp {

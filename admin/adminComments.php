@@ -64,8 +64,7 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
         if ($result) {
             // Commentaire supprimé avec succès, redirigez vers la page adminComments.php (commentaires à traiter)
             $_SESSION['info'] = "le commentaire a était supprimé avec succès";
-            
-            exit();
+            $_SESSION['info-type'] = 'success';
         } else {
             $_SESSION['info'] = "une erreur est survenue le commentaire n a pas était supprimé";
             $_SESSION['info-type'] = 'error';
