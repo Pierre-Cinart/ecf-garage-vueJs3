@@ -212,6 +212,12 @@ header {
     color: black;
   }
   /* véhicules */
+  
+  .form-box img{
+    width: 100px;
+    height: auto;
+    margin: auto;
+  }
   .gallery {
     padding: 15px;
     display: grid;

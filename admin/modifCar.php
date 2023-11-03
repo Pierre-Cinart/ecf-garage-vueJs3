@@ -52,13 +52,14 @@ if (isset($_POST['carId'])) {
 <head>
     <?php include_once("./phpComponents/head.php"); ?>
     <title>Modifier un véhicule</title>
+  
 </head>
 <body>
     <?php include_once("./phpComponents/header.php"); ?>
 
     <div class="admin-form car-form">
         <h2>Modifier les informations du véhicule</h2>
-        <form action="modifier_vehicule.php" method="post">
+        <form action="modifier_vehicule.php" method="post" enctype="multipart/form-data">
             <input type="hidden" name="vehicle_id" value="<?php echo $carId; ?>">
             <div class="form-box">
                 <label for="mark">Marque :</label>
@@ -66,7 +67,7 @@ if (isset($_POST['carId'])) {
             </div>
             <div class="form-box">
                 <label for="model">Modèle :</label>
-                <input type="text" name ="model" id="model" value="<?php echo $model; ?>">
+                <input type="text" name="model" id="model" value="<?php echo $model; ?>">
             </div>
             <div class="form-box">
                 <label for="km">Kilométrage :</label>
@@ -81,12 +82,12 @@ if (isset($_POST['carId'])) {
                 <input type="text" name="price" id="price" value="<?php echo $price; ?>">
             </div>
             <div class="form-box">
-                <label for="image">Image actuelle :</label>
-                <img src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $mark . '/'.$picture; ?>" alt="Image du véhicule" width="100" height="100">
+                <img id="preview-image"
+                    src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $mark . '/' . $picture; ?>" alt="Image actuelle">
             </div>
             <div class="form-box">
                 <label for="image">Nouvelle image :</label>
-                <input type="file" name="image" id="image">
+                <input type="file" name="image" id="image" accept=".jpeg, .jpg" onchange="showImage(this);">
             </div>
             <div class="form-box">
                 <label for="infos">Info :</label>
@@ -97,5 +98,19 @@ if (isset($_POST['carId'])) {
         </form>
     </div>
     <?php include_once("./phpComponents/script.php"); ?>
+    <script>
+        function showImage(input) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var imageElement = document.getElementById('preview-image');
+                    imageElement.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </body>
 </html>
+
