@@ -6,6 +6,7 @@ if (!isset($_SESSION["log_in"])){
     header('Location:logout.php');
     exit();
 }
+
 $currentPage = 'adminArticles'; //nom de page pour la navBar
 // accés bdd
 require_once("../backend/bdd.php");
@@ -35,23 +36,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txt-area'])) {
     //vérification du token
     require_once('./phpFunctions/verifToken.php');
     // Récupérer le nouveau contenu du textarea
-    $nouveauContenu = $_POST['txt-area'];
+    $newContent = $_POST['txt-area'];
     
     // Mettre à jour l'article dans la base de données
-    $requeteMiseAJour = $bdd->prepare("UPDATE articles SET content = ? WHERE title = ?");
-    $requeteMiseAJour->bind_param("ss", $nouveauContenu, $_SESSION['article']);
+    $updateQuery = $bdd->prepare("UPDATE articles SET content = ? WHERE title = ?");
+    $updateQuery->bind_param("ss", $newContent, $_SESSION['article']);
     
-    if ($requeteMiseAJour->execute()) {// a traier en pop up ...
+    if ($updateQuery->execute()) {// a traier en pop up ...
         // Mise à jour réussie
-        echo "L'article a été mis à jour avec succès.";
+       $_SESSION['info'] = 'l article à bien était mise à jour';
+       $_SESSION['info-type'] = 'success';
     } else {
         // Erreur de mise à jour
-        echo "Erreur lors de la mise à jour de l'article : " . $bdd->error;
+        $_SESSION['info'] = "Erreur lors de la mise à jour de l'article : " . $bdd->error;
+        $_SESSION['info-type'] = 'error';
+       
     }
-    $requeteMiseAJour->close();
+   
+    $updateQuery->close();
     
     // Réinitialiser la variable de session
     $_SESSION['article'] = "";
+   
 }
 ?>
 <!DOCTYPE html>
@@ -61,10 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txt-area'])) {
         <title>Gestion des articles</title>
     </head>
     <body>
-        <?php include_once("./phpComponents/header.php");?>
-        <div class="connect-info">
-            <div class="btn-connect"></div>
-            <p>Connecté en tant que <?php echo $_SESSION["user"]?></p>
+        <?php include_once("./phpComponents/header.php");
+        include_once("./phpComponents/infos.php");?>
+
         </div>
         <div class="dashboard-info">
             <h2>Quel article souhaitez-vous gérer ?</h2>

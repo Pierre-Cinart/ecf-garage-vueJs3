@@ -57,11 +57,41 @@ header {
     font-weight: bold;
   }
 /* info de connexion  */
+#popUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+  width:250px;
+  height:100px;
+  text-align: center;
+  margin: auto;
+  color: white;
+}
+
+/* Style pour les messages de succès */
+.success {
+  background-color: rgb(18, 201, 18); /* Fond vert pour les messages de succès */
+
+}
+
+/* Style pour les messages d'erreur */
+.error {
+  background-color: red; /* Fond rouge pour les messages d'erreur */
+
+}
+
 .connect-info{
   display: flex;
   align-items: baseline;
   border: solid 1px black;
   background-color: aquamarine;
+  margin-bottom: 15px;
 }
 .connect-info p{
  font-style: italic;
