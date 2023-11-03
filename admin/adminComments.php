@@ -46,9 +46,16 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
 
         if ($result) {
             // Commentaire validé avec succès, redirigez vers la page adminComments.php (commentaires validés)
-            header('Location: adminComments.php?ok=1');
-            exit();
+            $_SESSION['info'] = "le commentaire a était validé avec succès";
+            $_SESSION['info-type'] = 'success';
+           
+        }else {
+            $_SESSION['info'] = "erreur lors de la validation";
+            $_SESSION['info-type'] = 'error';
+            
         }
+        header('Location: adminComments.php?ok=1');
+            exit();
     } elseif ($action === 'delete') {
         // Action de suppression du commentaire
         $deleteQuery = "DELETE FROM comments WHERE comment_id = $commentId";
@@ -56,24 +63,30 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
 
         if ($result) {
             // Commentaire supprimé avec succès, redirigez vers la page adminComments.php (commentaires à traiter)
-            header('Location: adminComments.php?wait=1');
+            $_SESSION['info'] = "le commentaire a était supprimé avec succès";
+            
             exit();
+        } else {
+            $_SESSION['info'] = "une erreur est survenue le commentaire n a pas était supprimé";
+            $_SESSION['info-type'] = 'error';
+            
         }
+        header('Location: adminComments.php?wait=1');
+            exit();
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <?php include_once("./phpComponents/head.php"); ?>
+    <?php include_once("./phpComponents/head.php"); 
+    ?>
     <title>Gestion des commentaires</title>
 </head>
 <body>
-    <?php include_once("./phpComponents/header.php"); ?>
-    <div class="connect-info">
-        <div class="btn-connect"></div>
-        <p>Connecté en tant que <?php echo $_SESSION["user"] ?></p>
-    </div>
+    <?php include_once("./phpComponents/header.php"); 
+    include_once('./phpComponents/infos.php');?>
+   
     <div class="dashboard-info">
         <!-- Afficher un bouton Commentaires à traiter et un bouton Commentaires validés -->
         <p><a href="./adminComments.php?wait=1"><?php echo "Commentaires à traiter : " . $commentsWait; ?></a></p>
