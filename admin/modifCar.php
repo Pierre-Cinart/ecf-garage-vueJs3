@@ -44,6 +44,26 @@ if (isset($_POST['carId'])) {
 
     // Libérer les ressources de la requête préparée
     mysqli_stmt_close($stmt);
+    // Récupérer la liste des marques depuis la base de données
+$marks = array();
+$query = "SELECT mark_name FROM marks";
+$result = mysqli_query($bdd, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $marks[] = $row['mark_name'];
+    }
+}
+sort($marks);
+}
+// Récupérer la liste des couleurs depuis la base de données
+$colors = array();
+$query = "SELECT color_name FROM colors";
+$result = mysqli_query($bdd, $query);
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $colors[] = $row['color_name'];
+    }
+sort($colors);
 }
 ?>
 
@@ -52,7 +72,6 @@ if (isset($_POST['carId'])) {
 <head>
     <?php include_once("./phpComponents/head.php"); ?>
     <title>Modifier un véhicule</title>
-  
 </head>
 <body>
     <?php include_once("./phpComponents/header.php"); ?>
@@ -63,8 +82,21 @@ if (isset($_POST['carId'])) {
             <input type="hidden" name="vehicle_id" value="<?php echo $carId; ?>">
             <div class="form-box">
                 <label for="mark">Marque :</label>
-                <input type="text" name="mark" id="mark" value="<?php echo $mark; ?>">
+                <select name="mark" id="markSelect">
+                    <?php
+                    foreach ($marks as $option) {
+                        echo '<option value="' . $option . '"';
+                        if ($option == $mark) {
+                            echo ' selected';
+                        }
+                        echo '>' . $option . '</option>';
+                    }
+                    ?>
+                    <option value="Autre">Autre</option>
+                </select>
+                <input type="text" name="newMark" id="newMarkInput" style="display: none;" placeholder="Nouvelle marque">
             </div>
+
             <div class="form-box">
                 <label for="model">Modèle :</label>
                 <input type="text" name="model" id="model" value="<?php echo $model; ?>">
@@ -75,15 +107,26 @@ if (isset($_POST['carId'])) {
             </div>
             <div class="form-box">
                 <label for="color">Couleur :</label>
-                <input type="text" name="color" id="color" value="<?php echo $color; ?>">
+                <select name="color" id="colorSelect">
+                    <?php
+                    foreach ($colors as $option) {
+                        echo '<option value="' . $option . '"';
+                        if ($option == $color) {
+                            echo ' selected';
+                        }
+                        echo '>' . $option . '</option>';
+                    }
+                    ?>
+                    <option value="Autre">Autre</option>
+                </select>
+                <input type="text" name="newColor" id="newColorInput" style="display: none;" placeholder="Nouvelle couleur">
             </div>
             <div class="form-box">
                 <label for="price">Prix :</label>
                 <input type="text" name="price" id="price" value="<?php echo $price; ?>">
             </div>
             <div class="form-box">
-                <img id="preview-image"
-                    src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $mark . '/' . $picture; ?>" alt="Image actuelle">
+                <img id="preview-image" src="http://localhost/garage-v-parrot-vue/backend/img/<?php echo $mark . '/' . $picture; ?>" alt="Image actuelle">
             </div>
             <div class="form-box">
                 <label for="image">Nouvelle image :</label>
@@ -109,8 +152,30 @@ if (isset($_POST['carId'])) {
                 };
                 reader.readAsDataURL(file);
             }
+            
+            document.getElementById('newMarkInput').style.display = 'none';
+            document.getElementById('newColorInput').style.display = 'none';
         }
+
+        document.getElementById('markSelect').addEventListener('change', function() {
+            var newMarkInput = document.getElementById('newMarkInput');
+            if (this.value === 'Autre') {
+                newMarkInput.style.display = 'block';
+            } else {
+                newMarkInput.style.display = 'none';
+            }
+        });
+
+        document.getElementById('colorSelect').addEventListener('change', function() {
+            var newColorInput = document.getElementById('newColorInput');
+            if (this.value === 'Autre') {
+                newColorInput.style.display = 'block';
+            } else {
+                newColorInput.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
+
 
