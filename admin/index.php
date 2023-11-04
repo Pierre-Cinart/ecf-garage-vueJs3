@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["log_in"]=true;
         $_SESSION["user_id"] = $user["staff_id"];
         $_SESSION["token"] = createToken();
-        $_SESSION["user"] = $user["firstname"] . " " . $user["name"];
-        $_SESSION["admin"] = $user["admin"];
+        $_SESSION["user"] = $user["firstname"] . " " . $user["lastname"];
+        $_SESSION["admin"] = $user["rights"];
         $sql = $bdd->prepare('UPDATE staff SET token= ? WHERE staff_id = ?');
         $sql->bind_param("si", $_SESSION["token"], $_SESSION['user_id']);
         $sql->execute();

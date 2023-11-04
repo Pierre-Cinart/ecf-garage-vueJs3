@@ -26,7 +26,7 @@
                        <?php 
                             if (isset($_SESSION["admin"]) && $_SESSION["admin"] == "y" ){
                                 echo '<li class="nav-item"><a class="nav-link';
-                                if ($currentPage == 'addAdmin') {
+                                if ($currentPage == 'admin') {
                                     echo ' active'; 
                                 }
                                 echo '"  href="./admin.php" >Gérer le personnel</a></li>';
