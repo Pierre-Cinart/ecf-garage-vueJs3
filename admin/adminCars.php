@@ -60,11 +60,11 @@ while ($row = mysqli_fetch_assoc($result)) {
     <title>Gestion des véhicules</title>
 </head>
 <body>
-    <?php include_once("./phpComponents/header.php"); ?>
-    <div class="connect-info">
-        <div class="btn-connect"></div>
-        <p>Connecté en tant que <?php echo $_SESSION["user"]; ?></p>
-    </div>
+    <?php 
+        include_once("./phpComponents/header.php"); 
+        include_once("./phpComponents/infos.php");
+    ?>
+    
 
     <!-- Barre de recherche -->
     <form method="GET" action="adminCars.php">
