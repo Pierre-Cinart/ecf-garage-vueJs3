@@ -39,6 +39,8 @@ if (isset($_POST['inscription'])) {
                 if (mysqli_stmt_affected_rows($stmtInsert) > 0) {
                     $_SESSION['info'] = "Inscription réussie.";
                     $_SESSION['info-type'] = "success";
+                    include_once("./phpFunctions/insertLog.php");
+                    insertLog("ajout administrateur ( ".$firstname." ".$lastname." )",$bdd);
                     header('Location: admin.php');
                     exit();
                 } else {

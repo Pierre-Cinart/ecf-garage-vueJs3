@@ -138,6 +138,8 @@ if (isset($_POST['modif'])) {
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['info'] = "La modification du véhicule a bien été prise en compte.";
         $_SESSION['info-type'] = "success";
+        include_once ("./phpFunctions/insertLog.php");
+        insertLog("modification du véhicule : ".$mark." ".$model, $bdd);
     } else {
         $_SESSION['info'] = "Une erreur est survenue lors de la modification du véhicule : " . mysqli_error($bdd);
         $_SESSION['info-type'] = "error";

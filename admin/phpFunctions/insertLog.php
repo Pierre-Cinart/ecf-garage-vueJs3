@@ -1,5 +1,5 @@
 <?php
-function insertLog($adminId, $action, $bdd) {
+function insertLog($action, $bdd) {
    
     // Préparation de la requête SQL
     $query = "INSERT INTO logs (admin_id, action, log_date) VALUES (?, ?, NOW())";
@@ -9,7 +9,7 @@ function insertLog($adminId, $action, $bdd) {
 
     if ($stmt) {
         // Liaison des valeurs aux paramètres de la requête
-        mysqli_stmt_bind_param($stmt, "is", $adminId, $action);
+        mysqli_stmt_bind_param($stmt, "is", $_SESSION['user_id'], $action);
 
         // Exécution de la requête
         if (mysqli_stmt_execute($stmt)) {

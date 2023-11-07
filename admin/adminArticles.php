@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txt-area'])) {
     
     if ($updateQuery->execute()) {// a traier en pop up ...
         // Mise à jour réussie
-       $_SESSION['info'] = 'l article à bien était mise à jour';
+       $_SESSION['info'] = 'l article a bien était mise à jour';
        $_SESSION['info-type'] = 'success';
+       include_once ("./phpFunctions/insertLog.php");
+        insertLog("modification de l article ".$_SESSION['article'], $bdd);
     } else {
         // Erreur de mise à jour
         $_SESSION['info'] = "Erreur lors de la mise à jour de l'article : " . $bdd->error;

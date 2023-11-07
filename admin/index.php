@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql->bind_param("si", $_SESSION["token"], $_SESSION['user_id']);
         $sql->execute();
         include_once ("./phpFunctions/insertLog.php");
-        insertLog( $_SESSION["user_id"],"connexion", $bdd);
+        insertLog("connexion", $bdd);
         header("Location: dashboard.php"); // Rediriger vers la page d'accueil après la connexion
         exit;
     } else {
