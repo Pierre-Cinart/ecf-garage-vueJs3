@@ -4,7 +4,7 @@ if (!$_SESSION["log_in"] ){
     exit();
 }
 // Récupérer le jeton de l'utilisateur depuis la base de données
-
+// AJOUTER UN TEST SUR LE TIMESTAMP ET LANC2 UNE FONCTION D IDENTIFICATION SI LE TEMPS EST DEPASSé
     // tester l id de l utilisateur / deconnexion si vide deconnecter
     if (isset($_SESSION['user_id'])) {
         $userId = $_SESSION['user_id'];
