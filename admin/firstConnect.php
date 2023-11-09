@@ -54,9 +54,12 @@ function generateCode() {
             echo "<input type='hidden' name='step' value='1'>";
             echo "<button type='submit'>envoyer le code</button>";
             echo "</form>";
+            if ($step == 1){
+                generateCode();
+            }
             if ($step == 1 || $step == 2) {
                 // Génère et enregistre le code 
-                generateCode();
+                
                 echo "<form method='post' action='firstConnect.php'>";
                 echo "<input type='text' name='confirm_code'></input>";
                 echo "<input type='hidden' name='step' value='3'>";
@@ -150,7 +153,7 @@ function generateCode() {
             } else {
                 // Les conditions ne sont pas remplies, définir les sessions info
                 $_SESSION['step'] = 4;
-                $_SESSION['info'] = "Votre réponse doit contenir entre 3 et 25 lettres. Ne doit contenir aucun symbole ni de chiffre.";
+                $_SESSION['info'] = "les 2 réponses doivent être identique ,contenir entre 3 et 25 lettres ,ne ne pas contenir de symbole ni de chiffre.";
                 $_SESSION['info-type'] = "error";
                 header('Location: firstConnect.php');
                 exit;
@@ -199,7 +202,7 @@ function generateCode() {
             } else {
                 // Les conditions ne sont pas remplies, définir les sessions info
                 $_SESSION['step'] = 6;
-                $_SESSION['info'] = "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule et un symbole parmi +-_!?@#.";
+                $_SESSION['info'] = "Les mots de passe doivent être identiques contenir au moins 8 caractères, une majuscule, une minuscule et un symbole parmi +-_!?@#.";
                 $_SESSION['info-type'] = "error";
                 header('Location: firstConnect.php');
                 exit;
