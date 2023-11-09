@@ -2,7 +2,7 @@
 session_start();
 require_once "./phpFunctions/createToken.php";
 require_once "../backend/bdd.php";
-
+$_SESSION['connexion'] = 0;
 if (!isset($_SESSION['connexion'])){
     $_SESSION['connexion'] = 0;
     
@@ -15,7 +15,7 @@ if (!isset($_SESSION['connexion'])){
     }
 }
 
-var_dump($_SESSION['connexion']);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
    
     $email = htmlspecialchars($_POST["email"]);
@@ -28,26 +28,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user["password_hash"])) {
-        //verifier le status de  l admin;
-        //si === wait alors envoyer sur la page de première connexion firstConnect.php
-        //si non
+      
         // Créez un token
         $token = createToken();
 
         // Calculez la timestamp actuelle + 30 minutes (en secondes)
         $expiration = time() + 1800;//30 minutes
 
-        $_SESSION["log_in"] = true;
+       
         $_SESSION["user_id"] = $user["staff_id"];
         $_SESSION["token"] = $token;
         $_SESSION["user"] = $user["firstname"] . " " . $user["lastname"];
         $_SESSION["admin"] = $user["rights"];
-
+           //verifier le status de  l admin;
+        //si === wait alors envoyer sur la page de première connexion firstConnect.php
+        if ($_SESSION['admin'] == "wait") {
+            header("Location: firstConnect.php"); // Rediriger vers la page de première connexion  
+            exit();
+        }
+        $_SESSION["log_in"] = true;
         $sql = $bdd->prepare('UPDATE staff SET token = ?, token_end = ? WHERE staff_id = ?');
         $sql->bind_param("sii", $token, $expiration, $_SESSION['user_id']);
         $sql->execute();
         $_SESSION['connexion'] == 0;
-
+       
         include_once ("./phpFunctions/insertLog.php");
         insertLog("connexion", $bdd);
         header("Location: dashboard.php"); // Rediriger vers la page d'accueil après la connexion

@@ -1,6 +1,6 @@
 <!-- info de connection -->
 <?php
-    if (isset($_SESSION['user'])){
+    if (isset($_SESSION['log-in'])){
         echo '<div class="connect-info">';
         echo '<div class="btn-connect"></div>';
         echo '<p>Connecté en tant que <?php echo $_SESSION["user"]?></p></div>';
