@@ -3,16 +3,21 @@ session_start();
 require_once "./phpFunctions/createToken.php";
 require_once "../backend/bdd.php";
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (!isset($_SESSION['connexion'])){
-        $_SESSION['connexion'] = 0;
-    } else {
-        $_SESSION['connexion'] += 1;
-        if ($_SESSION['connexion'] > 3){
-            // bloquer l accés  de cette session 
-        }
+if (!isset($_SESSION['connexion'])){
+    $_SESSION['connexion'] = 0;
+    
+} else {
+    $_SESSION['connexion'] += 1;
+    if ($_SESSION['connexion'] > 3){
+        header('Location:forbidenAccess.php');
+        exit();
+        // bloquer l accés  de cette session 
     }
+}
+
+var_dump($_SESSION['connexion']);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   
     $email = htmlspecialchars($_POST["email"]);
     $password = htmlspecialchars($_POST["password"]);
 
@@ -23,11 +28,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = $result->fetch_assoc();
 
     if ($user && password_verify($password, $user["password_hash"])) {
+        //verifier le status de  l admin;
+        //si === wait alors envoyer sur la page de première connexion firstConnect.php
+        //si non
         // Créez un token
         $token = createToken();
 
         // Calculez la timestamp actuelle + 30 minutes (en secondes)
-        $expiration = time() + 30 * 60;
+        $expiration = time() + 1800;//30 minutes
 
         $_SESSION["log_in"] = true;
         $_SESSION["user_id"] = $user["staff_id"];
@@ -39,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql->bind_param("sii", $token, $expiration, $_SESSION['user_id']);
         $sql->execute();
         $_SESSION['connexion'] == 0;
+
         include_once ("./phpFunctions/insertLog.php");
         insertLog("connexion", $bdd);
         header("Location: dashboard.php"); // Rediriger vers la page d'accueil après la connexion
@@ -74,12 +83,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <form method="POST" action="index.php" id="connect-form">
                 <div class="form-box">
                     <label for="email">Identifiant :</label>
-                    <input type="email" name="email" id="email" placeholder="adresse e-mail">
+                    <input type="email" name="email" id="email" placeholder="adresse e-mail" required>
                 </div>
                 <br>
                 <div class="form-box">
                     <label for="password">Mot de passe :</label>
-                    <input type="password" name="password" id="password" placeholder="Mot de passe">
+                    <input type="password" name="password" id="password" placeholder="Mot de passe" required>
                 </div>
                 <br>
                 <div class="btn-sub">
