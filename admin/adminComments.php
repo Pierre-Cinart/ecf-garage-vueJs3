@@ -1,13 +1,29 @@
 <?php
 session_start();
-
+var_dump($_SESSION);
+if  (isset($_POST['password'])){
+    $_SESSION['password'] = $_POST['password'];
+   
+}
+// connexion base de données
+require_once('../backend/bdd.php');
+//pour affichager fluo navbar
 $currentPage = 'adminComments';
+
+// pour renvoie l adresse de la page pour le fichier de verification de mot de passe 
+$_SESSION['page'] = './adminComments.php';
+//verification si des essais de connexion
+if ( $_SESSION['connexion'] > 0) {
+    include_once ('./phpFunctions/verifPassword.php');
+}
+
+//verification de compte connecté
 if (!isset($_SESSION["log_in"])) {
     header('Location: logout.php');
     exit();
 }
-require_once('../backend/bdd.php');
 
+// pour affichage des commentaires validés et à traiter
 if (!isset($_GET["ok"]) || (isset($_GET["ok"]) && $_GET["ok"] != 1)) {
     $ok = 0;
 }
@@ -34,9 +50,12 @@ $commentsTotal = $commentsOk + $commentsWait;
 if (isset($_POST['commentId']) && isset($_POST['action'])) {
     $commentId = $_POST['commentId'];
     $action = $_POST['action'];
-
-    if ($action === 'validate') {
+    //verification du token
+    include_once('./phpFunctions/verifToken.php');
+    //si token vérifié
+    if ($action === 'validate' && $_SESSION['validateToken'] === 1) {
         // Action de validation du commentaire
+     
         $updateQuery = "UPDATE comments SET comment_status = 'ok' WHERE comment_id = $commentId";
         $result = mysqli_query($bdd, $updateQuery);
 
@@ -44,6 +63,7 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
             // Commentaire validé avec succès, redirigez vers la page adminComments.php (commentaires validés)
             $_SESSION['info'] = "Le commentaire a été validé avec succès";
             $_SESSION['info-type'] = 'success';
+            $_SESSION['validateToken'] = 0;
 
             // Récupérer le prénom de l'auteur et la date du commentaire
             $queryCommentInfo = "SELECT firstname, comment_date FROM comments WHERE comment_id = $commentId";

@@ -5,7 +5,7 @@ if (!$_SESSION["log_in"]){
     header('Location:logout.php');
     exit();
 }
-var_dump($_SESSION['admin']);
+
 // Inclure le fichier de connexion à la base de données
 require_once('../backend/bdd.php');
 

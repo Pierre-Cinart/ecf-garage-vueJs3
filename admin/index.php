@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION["token"] = $token;
         $_SESSION["user"] = $user["firstname"] . " " . $user["lastname"];
         $_SESSION["admin"] = $user["rights"];
+        $_SESSION['connexion'] = 0;
            //verifier le status de  l admin;
         //si === wait alors envoyer sur la page de première connexion firstConnect.php
         if ($_SESSION['admin'] == "wait") {
@@ -50,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = $bdd->prepare('UPDATE staff SET token = ?, token_end = ? WHERE staff_id = ?');
         $sql->bind_param("sii", $token, $expiration, $_SESSION['user_id']);
         $sql->execute();
-        $_SESSION['connexion'] == 0;
+     
        
         include_once ("./phpFunctions/insertLog.php");
         insertLog("connexion", $bdd);
