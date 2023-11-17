@@ -33,8 +33,8 @@ $messagesCount = mysqli_fetch_array($resultMessages)[0];
         <p>Connecté en tant que <?php echo $_SESSION["user"] ?></p>
     </div>
     <div class="dashboard-info">
-        <p><a href="./adminComments.php"><?php echo "Commentaires à traiter : " . $commentsCount; ?></a></p>
-        <p><a href="./adminMessages.php"><?php echo "Messages à traiter : " . $messagesCount; ?></a></p>
+        <p><a href="./adminComments.php"><?php echo "Gérer les commentaires  : " . $commentsCount; ?></a></p>
+        <p><a href="./adminMessages.php"><?php echo "Gérer les messages  : " . $messagesCount; ?></a></p>
         <p><a href="./adminCars.php"><?php echo "Gérer les véhicules" ?></a></p>
         <p><a href="./adminArticles.php"><?php echo "Modifier les articles" ?></a></p>
     </div>

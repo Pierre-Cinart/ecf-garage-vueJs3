@@ -10,8 +10,8 @@ function confirmDelete(redirectUrl, commentId) {
         })
         .then(response => {
             if (response.ok) {
-                // Commentaire supprimé avec succès, vous pouvez actualiser la page ou effectuer d'autres actions
-                location.reload(); // Rechargez la page pour refléter les commentaires mis à jour
+                // element supprimé avec succès,
+                window.location.href = 'adminComments.php?wait=1'; // Recharge la page avec les commentaires mis à jour
             } else {
                 // Gestion des erreurs
             }

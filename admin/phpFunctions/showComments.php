@@ -63,9 +63,16 @@ while ($row = $result->fetch_assoc()) {
                             <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
                         </form>
                     <?php endif; ?>
+                     
+                        <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
+                        <form action="adminComments.php" method="post">
+                            <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
 
-                    <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
-                    <button class="icon-button bg-red" onclick="confirmDelete('adminComments.php', <?= $comment['commentId'] ?>)"><i class="fas fa-trash-alt"></i></button>
+                            <button class="icon-button bg-red" 
+                                    onclick="confirmDelete('adminComments.php', <?= $comment['commentId'] ?>)"><i class="fas fa-trash-alt"></i>
+                            </button>
+                        </form>
+                    
                 </div>
             </div>
             <div class="sep"></div>

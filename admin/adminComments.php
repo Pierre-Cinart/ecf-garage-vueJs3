@@ -1,10 +1,17 @@
 <?php
 session_start();
-var_dump($_SESSION);
+
 if  (isset($_POST['password'])){
     $_SESSION['password'] = $_POST['password'];
    
 }
+//pour recupération du message popup
+if (isset($_POST["info"]) ) {
+    $_SESSION["info"] = $_POST["info"];
+ }
+ if (isset($_POST["info-type"]) ) {
+     $_SESSION["info-type"] = $_POST["info-type"];
+  }
 // connexion base de données
 require_once('../backend/bdd.php');
 //pour affichager fluo navbar
@@ -12,10 +19,6 @@ $currentPage = 'adminComments';
 
 // pour renvoie l adresse de la page pour le fichier de verification de mot de passe 
 $_SESSION['page'] = './adminComments.php';
-//verification si des essais de connexion
-if ( $_SESSION['connexion'] > 0) {
-    include_once ('./phpFunctions/verifPassword.php');
-}
 
 //verification de compte connecté
 if (!isset($_SESSION["log_in"])) {

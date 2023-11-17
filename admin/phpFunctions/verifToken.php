@@ -4,12 +4,15 @@ if (!$_SESSION["log_in"]) {
     header('Location: logout.php');
     exit();
 }
-
+//verification de demande de connexion
+if ( $_SESSION['connexion'] > 0) {
+    include_once ('./phpFunctions/verifPassword.php');
+}
 // Récupérer l'ID de l'utilisateur depuis la session
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
 
-    // Vérifier si le jeton existe dans la session
+    // Vérifier si le jeton existe dans la session et mettre à zéro la validation du token (0=non validé , 1=validé)
     if (isset($_SESSION['token'])) {
         $token = $_SESSION['token'];
         $_SESSION['validateToken'] = 0;
@@ -57,7 +60,7 @@ if ($tokenUser && $_SESSION['token'] === $tokenUser['token']) {
         $queryUpdateTokenEnd->bind_param("ii", $newTokenEnd, $userId);
 
         if ($queryUpdateTokenEnd->execute()) {
-            $_SESSION['validateToken'] = 1;
+            $_SESSION['validateToken'] = 1;//token validé
             // Le timestamp du token a été mis à jour avec succès
             // la demande administrateur peut etre effectuée
         } else {
