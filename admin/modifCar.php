@@ -10,7 +10,7 @@ if (!isset($_SESSION["log_in"])) {
 require_once('../backend/bdd.php');
 
 // Initialisation des variables
-$carId = $marque = $modele = $km = $couleur = $price = $infos = '';
+$carId = $mark = $model = $km = $couleur = $price = $infos = '';
 $carPicture = ''; // Nouvelle variable pour le nom de l'image
 
 // Vérifie si un ID de véhicule a été transmis via POST
@@ -69,13 +69,19 @@ if ($result) {
 }
 
 if (isset($_POST['modif'])) {
-   
+     // verification de token
+     include_once("./phpFunctions/verifToken.php");
+     if ($_SESSION['validateToken'] != 1){
+         header('Location: logout.php');
+         exit();
+     }
     $mark = htmlspecialchars($_POST['car_mark']);
     $model = htmlspecialchars($_POST['car_model']);
     $km = intval($_POST['car_km']);
     $color = htmlspecialchars($_POST['car_color']);
     $price = htmlspecialchars($_POST['car_price']);
     $infos = htmlspecialchars($_POST['car_info']);
+    $date = intval($_POST['car_date']);
 
     // Gérer l'upload d'une nouvelle image
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -131,9 +137,9 @@ if (isset($_POST['modif'])) {
     mysqli_stmt_close($stmtColor);
 
     // Mettre à jour le véhicule dans la base de données
-    $updateQuery = "UPDATE cars SET car_mark_id = ?, car_model = ?, car_km = ?, car_color_id = ?, car_price = ?, car_info = ?, car_picture = ? WHERE car_id = ?";
+    $updateQuery = "UPDATE cars SET car_mark_id = ?, car_model = ?, car_km = ?, car_color_id = ?, car_price = ?, car_info = ?, car_picture = ?,car_date = ? WHERE car_id = ?";
     $stmt = mysqli_prepare($bdd, $updateQuery);
-    mysqli_stmt_bind_param($stmt, "isssdssi", $markId, $model, $km, $colorId, $price, $infos, $carPicture, $carId);
+    mysqli_stmt_bind_param($stmt, "isssdssii", $markId, $model, $km, $colorId, $price, $infos, $carPicture, $date, $carId);
 
     if (mysqli_stmt_execute($stmt)) {
         $_SESSION['info'] = "La modification du véhicule a bien été prise en compte.";
@@ -219,6 +225,10 @@ if (isset($_POST['modif'])) {
                 <input type="file" name="image" id="image" accept=".jpeg, .jpg" onchange="showImage(this);">
             </div>
             <div class="form-box">
+                <label for="car_date">année de construction :</label>
+                <input type="text" name="car_date" id="car_date" required>
+            </div>
+            <div class="form-box">
                 <label for="infos">Info :</label>
                 <textarea name="car_info" id="infos" rows="6" cols="32"><?php echo $infos; ?></textarea>
             </div>
@@ -227,39 +237,6 @@ if (isset($_POST['modif'])) {
         </form>
     </div>
     <?php include_once("./phpComponents/script.php"); ?>
-    <script>
-        function showImage(input) {
-            var file = input.files[0];
-            if (file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var imageElement = document.getElementById('preview-image');
-                    imageElement.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-
-            document.getElementById('newMarkInput').style.display = 'none';
-            document.getElementById('newColorInput').style.display = 'none';
-        }
-
-        document.getElementById('markSelect').addEventListener('change', function() {
-            var newMarkInput = document.getElementById('newMarkInput');
-            if (this.value === 'Autre') {
-                newMarkInput.style.display = 'block';
-            } else {
-                newMarkInput.style.display = 'none';
-            }
-        });
-
-        document.getElementById('colorSelect').addEventListener('change', function() {
-            var newColorInput = document.getElementById('newColorInput');
-            if (this.value === 'Autre') {
-                newColorInput.style.display = 'block';
-            } else {
-                newColorInput.style.display = 'none';
-            }
-        });
-    </script>
+    <script src="./js/addInput.js"></script>
 </body>
 </html>

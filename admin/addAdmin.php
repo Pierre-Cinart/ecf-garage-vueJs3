@@ -11,6 +11,11 @@ require_once("../backend/bdd.php");
 require_once("./phpFunctions/createToken.php");
 
 if (isset($_POST['inscription'])) {
+    include_once("./phpFunctions/verifToken.php");
+if ($_SESSION['validateToken'] != 1){
+    header('Location: logout.php');
+    exit();
+}
     if (!empty($_POST['new-user']) && !empty($_POST['new-user-2']) && !empty($_POST['firstname']) && !empty($_POST['lastname'])) {
         if ($_POST['new-user'] === $_POST['new-user-2']) {
             $email = $_POST['new-user'];

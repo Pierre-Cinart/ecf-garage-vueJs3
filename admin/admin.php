@@ -42,6 +42,7 @@ if (!$_SESSION["log_in"] || $_SESSION["admin"] != "y") {
             include_once ('./phpFunctions/showLogs.php');            
         }
     ?>
+    <script src = "./js/confirmDelete.js"></script>
     <?php include_once("./phpComponents/script.php"); ?>
 </body>
 </html>

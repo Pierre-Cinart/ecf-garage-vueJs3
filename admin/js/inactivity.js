@@ -1,1 +1,0 @@
-//developer le code dinactiviter event listener et setTimeout

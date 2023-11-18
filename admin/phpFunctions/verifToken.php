@@ -50,13 +50,14 @@ if ($tokenUser && $_SESSION['token'] === $tokenUser['token']) {
     $resultTokenEnd = $queryTokenEnd->get_result();
     $tokenEnd = $resultTokenEnd->fetch_assoc();
 
-    // Vérifier si le token est valide et n'a pas expiré
+    // V si le token est valide et n'a pas expiré
     if ($tokenEnd && $currentTimestamp < $tokenEnd['token_end']) {
         // Le token est valide et n'a pas expiré
 
-        // Mettre à jour le timestamp de "token_end" 
+        // Mise à jour du timestamp de "token_end" 
         $queryUpdateTokenEnd = $bdd->prepare("UPDATE staff SET token_end = ? WHERE staff_id = ?");
-        $newTokenEnd = time() + 1800; // 30 minutes
+        $h = 3600;// 1heure
+        $newTokenEnd = time() + 2*$h; // +2heures
         $queryUpdateTokenEnd->bind_param("ii", $newTokenEnd, $userId);
 
         if ($queryUpdateTokenEnd->execute()) {

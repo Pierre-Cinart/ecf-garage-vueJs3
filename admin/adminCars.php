@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $currentPage = 'adminCars';
 if (!isset($_SESSION["log_in"])) {
     header('Location: logout.php');
@@ -96,7 +97,12 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </form>
                     <form action="deleteCar.php" method="post">
                         <input type="hidden" name="carId" value="<?php echo $vehicle['car_id']; ?>">
-                        <button type="submit" class="icon-button bg-red"><i class="fas fa-trash"></i></button>
+                        <button type="submit" class="icon-button bg-red" onclick="confirmDelete('deleteCar.php', <?php echo $vehicle['car_id'] ?>)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+
+                        
                     </form>
                 </div>
             </div>
@@ -105,5 +111,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 </div>
 
     <?php include_once("./phpComponents/script.php"); ?>
+    <script src= "./js/confirmDelete.js"></script>
 </body>
 </html>

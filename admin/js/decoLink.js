@@ -1,3 +1,4 @@
+ // pour afficher le boutton de deconnexion
  // Sélectionnez le bouton de menu déroulant
  var menuButton = document.querySelector(".navbar-toggler");
   

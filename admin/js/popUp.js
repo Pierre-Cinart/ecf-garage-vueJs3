@@ -3,7 +3,6 @@
 const popup = document.getElementById('popUp');
 
 if (popup) {
-    console.log(popup);
     setTimeout(hidePopup, 5000);
   }
 // masque le pop-up

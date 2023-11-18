@@ -18,6 +18,7 @@ $articleValue = "";
 
 
 if (isset($_GET['article'])) {
+    
     $_SESSION['article'] = htmlspecialchars($_GET['article']);
     if ($_SESSION['article'] != "") {
         $query = "SELECT content FROM articles WHERE title = '{$_SESSION['article']}' LIMIT 1";
@@ -33,8 +34,12 @@ if (isset($_GET['article'])) {
 
 // Vérifier si le formulaire a été soumis
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['txt-area'])) {
-    //vérification du token
-    require_once('./phpFunctions/verifToken.php');
+     // verification de token
+     include_once("./phpFunctions/verifToken.php");
+     if ($_SESSION['validateToken'] != 1){
+         header('Location: logout.php');
+         exit();
+     }
     // Récupérer le nouveau contenu du textarea
     $newContent = $_POST['txt-area'];
     

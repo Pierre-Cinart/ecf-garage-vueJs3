@@ -84,7 +84,7 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
         }
         header('Location: adminComments.php?ok=1');
         exit();
-    } elseif ($action === 'delete') {
+    } elseif ($action === 'delete' && $_SESSION['validateToken'] === 1) {
         // Récupérer le prénom de l'auteur et la date du commentaire
         $queryCommentInfo = "SELECT firstname, comment_date FROM comments WHERE comment_id = $commentId";
         $resultCommentInfo = mysqli_query($bdd, $queryCommentInfo);

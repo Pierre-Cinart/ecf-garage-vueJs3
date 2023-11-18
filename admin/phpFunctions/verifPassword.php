@@ -4,7 +4,7 @@
 
 if  (isset($_SESSION['password'])) {
         $password = htmlspecialchars($_SESSION["password"]);
-        var_dump($password);
+ 
         // Assurez-vous de récupérer l'utilisateur de la session correct
         $userId = $_SESSION['user_id'];
         $stmt = $bdd->prepare("SELECT * FROM staff WHERE staff_id = ?");
@@ -49,6 +49,7 @@ if  (isset($_SESSION['password'])) {
             }
         }
     } else {
+        $_SESSION['validateToken'] = 0;
         // // Rediriger vers logout.php si la demande n'est pas une requête POST valide
         // header('Location: logout.php');
         // exit();

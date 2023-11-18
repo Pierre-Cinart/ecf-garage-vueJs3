@@ -1,4 +1,13 @@
-verifier les droits et la validité du token // 
+<?php
+    session_start();
+    //verification du token 
+  include_once("./phpFunctions/verifToken.php");
+  if ($_SESSION['validateToken'] != 1){
+      header('Location: logout.php');
+      exit();
+  }
+?>
+
 ouvrir le message //
 donner la possibilité de repondre ou supprimer //
 changer le status ou effacer //

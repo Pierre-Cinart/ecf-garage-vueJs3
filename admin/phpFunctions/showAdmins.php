@@ -81,20 +81,21 @@ if (isset($_GET["show"])) {
 <!-- Pagination -->
 <div class="pagination">
     <?php
-    $linkStatus = "show=admins"; // Vous pouvez ajouter d'autres paramètres GET ici si nécessaire
+  
     $previousPage = $currentPageShow - 1;
     $nextPage = $currentPageShow + 1;
     $hasPreviousPage = ($currentPageShow > 1);
     $hasNextPage = ($currentPageShow < $totalPages);
 
     if ($hasPreviousPage) {
-        echo '<a href="admin.php?' . $linkStatus . '&page=' . $previousPage . '">Page précédente</a>';
+        echo '<a href="admin.php?show=admins&page=' . $previousPage . '">Page précédente</a>';
     }
     echo '<p>' . $currentPageShow . '</p>';
     if ($hasNextPage) {
-        echo '<a href="admin.php?' . $linkStatus . '&page=' . $nextPage . '">Page suivante</a>';
+        echo '<a href="admin.php?show=admins&page=' . $nextPage . '">Page suivante</a>';
     }
     ?>
 </div>
+
 
 <!-- Fin du contenu HTML -->
