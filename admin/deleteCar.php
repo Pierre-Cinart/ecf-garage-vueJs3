@@ -9,8 +9,8 @@ if ($_SESSION['validateToken'] != 1) {
 
 require_once('../backend/bdd.php');
 
-if (isset($_POST['carId'])) {
-    $carId = $_POST['carId'];
+if (isset($_POST['elementId']) ) {
+    $carId = $_POST['elementId'];
 
     $imageQuery = "SELECT marks.mark_name, cars.car_picture FROM cars 
                     LEFT JOIN marks ON cars.car_mark_id = marks.mark_id

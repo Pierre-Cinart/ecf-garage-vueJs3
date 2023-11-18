@@ -58,23 +58,16 @@ while ($row = $result->fetch_assoc()) {
                 <div class="comment-ico">
                     <?php if ($commentsStatus == "wait") : ?>
                         <form action="adminComments.php" method="post">
-                            <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
+                            <input type="hidden" name="elementId" value="<?= $comment['commentId'] ?>">
                             <input type="hidden" name="action" value="validate">
                             <button type="submit" class="icon-button bg-green"><i class="fas fa-check-circle"></i></button>
                         </form>
                     <?php endif; ?>
                      
-                        <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
-                        <form action="adminComments.php" method="post">
-                           
-
-                            <button class="icon-button bg-red" 
-                                    data-element-id="<?php echo $comment['commentId'];?>"
-                                    onclick="confirmDelete('adminComments.php','adminComments.php', <?= $comment['commentId'] ?>)">
-                                    <i class="fas fa-trash-alt"></i>
-                            </button>
- 
-                        </form>
+                    <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
+                    <button type="button" class="icon-button bg-red" onclick="confirmDelete('./adminComments.php',<?php echo $comment['commentId']; ?>)">
+                        <i class="fas fa-trash"></i>
+                    </button>
                     
                 </div>
             </div>

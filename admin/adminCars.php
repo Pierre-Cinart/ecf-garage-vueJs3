@@ -95,9 +95,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                         <input type="hidden" name="carId" value="<?php echo $vehicle['car_id']; ?>">
                         <button type="submit" class="icon-button bg-green"><i class="fas fa-cog"></i></button>
                     </form>
-                    <form action="deleteCar.php" method="post" id = "deleteForm">
-                        
-                    <button type="button" class="icon-button bg-red delete-button" data-element-id="<?php echo $vehicle['car_id']; ?>" onclick='confirmDelete("adminCars.php", "deleteCar.php", <?php echo $vehicle['car_id']; ?>)'>
+                    <button type="button" class="icon-button bg-red" onclick="confirmDelete('./deleteCar.php',<?php echo $vehicle['car_id']; ?>)">
                         <i class="fas fa-trash"></i>
                     </button>
 
@@ -110,7 +108,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         </div>
     <?php endforeach; ?>
 </div>
-
+    
     <?php include_once("./phpComponents/script.php"); ?>
     <script src= "./js/confirmDelete.js"></script>
 </body>

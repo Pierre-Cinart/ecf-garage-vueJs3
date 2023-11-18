@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+// pour demande de reconnexion
 if  (isset($_POST['password'])){
     $_SESSION['password'] = $_POST['password'];
    
@@ -50,8 +51,8 @@ $commentsOk = mysqli_fetch_array($resultCommentsOk)[0];
 
 $commentsTotal = $commentsOk + $commentsWait;
 
-if (isset($_POST['commentId']) && isset($_POST['action'])) {
-    $commentId = $_POST['commentId'];
+if (isset($_POST['elementId']) && isset($_POST['action'])) {
+    $commentId = $_POST['elementId'];
     $action = $_POST['action'];
     //verification du token
     include_once('./phpFunctions/verifToken.php');
@@ -95,12 +96,13 @@ if (isset($_POST['commentId']) && isset($_POST['action'])) {
         // Action de suppression du commentaire
         $deleteQuery = "DELETE FROM comments WHERE comment_id = $commentId";
         $result = mysqli_query($bdd, $deleteQuery);
-
+       
         if ($result) {
+           
             // Commentaire supprimé avec succès, redirigez vers la page adminComments.php (commentaires à traiter)
             $_SESSION['info'] = "Le commentaire a été supprimé avec succès";
             $_SESSION['info-type'] = 'success';
-
+            $_SESSION['validateToken'] = 0;
             // Enregistrer une trace de log pour la suppression
             include_once("./phpFunctions/insertLog.php");
             insertLog("Suppression du commentaire de " . $authorFirstname . " envoyé le : " . $commentDate, $bdd);
