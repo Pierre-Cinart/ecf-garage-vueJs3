@@ -66,11 +66,14 @@ while ($row = $result->fetch_assoc()) {
                      
                         <!-- Utilisez la fonction confirmDelete pour supprimer le commentaire -->
                         <form action="adminComments.php" method="post">
-                            <input type="hidden" name="commentId" value="<?= $comment['commentId'] ?>">
+                           
 
                             <button class="icon-button bg-red" 
-                                    onclick="confirmDelete('adminComments.php', <?= $comment['commentId'] ?>)"><i class="fas fa-trash-alt"></i>
+                                    data-element-id="<?php echo $comment['commentId'];?>"
+                                    onclick="confirmDelete('adminComments.php','adminComments.php', <?= $comment['commentId'] ?>)">
+                                    <i class="fas fa-trash-alt"></i>
                             </button>
+ 
                         </form>
                     
                 </div>

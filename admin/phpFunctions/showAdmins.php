@@ -69,9 +69,12 @@ if (isset($_GET["show"])) {
 
             <div class="comment-ico">
                 <!-- Utilisez la fonction confirmDelete pour supprimer l'administrateur -->
-                <button class="icon-button bg-red" onclick="confirmDelete('deleteAdmin.php', <?= $admin['adminId'] ?>)">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
+                <form method="post" action="deleteAdmin.php">
+                    <input type="hidden" name="adminId" value="<?= $admin['adminId'] ?>">
+                    <button type="submit" class="icon-button bg-red" onclick="return confirmDelete('./deleteAdmin.php',$admin['adminId']);">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </form>
             </div>
         </div>
         <div class="sep"></div>
@@ -96,6 +99,6 @@ if (isset($_GET["show"])) {
     }
     ?>
 </div>
-
+<script src = "./js/confirmDelete.js"></script>
 
 <!-- Fin du contenu HTML -->
